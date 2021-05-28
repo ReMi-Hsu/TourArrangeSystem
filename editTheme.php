@@ -1,5 +1,5 @@
 <?php
-    if(isset($_POST[themeid]))
+    if(isset($_POST[update]))
     {
         $tid = $_POST[themeid];
         $conn = mysqli_connect("localhost", "root", "", "theme_arrangement");

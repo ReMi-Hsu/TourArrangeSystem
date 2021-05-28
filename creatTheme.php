@@ -1,5 +1,5 @@
 <?php
-    if(isset($_POST[title]))
+    if(isset($_POST[create]))
     {
         $conn = mysqli_connect("localhost", "root", "", "theme_arrangement");
         $sql_old = "select * from themes order by id desc limit 1";

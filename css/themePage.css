@@ -35,6 +35,15 @@ body{
     width: 50%;
 }
 
+#viewThemeDialog{
+    position: absolute;
+    top: 25%;
+    background-color:#dfdfffb0;
+    border: 0px;
+    border-radius: 20px;
+    width: 50%;
+}
+
 #closeDia{
     border: 0px;
     float: right;

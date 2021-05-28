@@ -1,0 +1,56 @@
+body{
+    margin: 0px;
+}
+
+.themes{
+    background-color:#f1f1f1;
+    border: 0px;
+    border-radius: 5px;
+    margin-left: 3%;
+    margin-top: 2%;
+    width: 50%;
+    text-align: left;
+}
+
+.themes:hover{
+    background-color:#b8bebe;
+    cursor: pointer;
+}
+
+#createThemeDialog{
+    position: absolute;
+    top: 25%;
+    background-color:#dfdfffb0;
+    border: 0px;
+    border-radius: 20px;
+    width: 50%;
+}
+
+#editThemeDialog{
+    position: absolute;
+    top: 25%;
+    background-color:#dfdfffb0;
+    border: 0px;
+    border-radius: 20px;
+    width: 50%;
+}
+
+#closeDia{
+    border: 0px;
+    float: right;
+    background-color: transparent;
+    width: 10px;
+    height: 10px;
+}
+#closeDia:hover{
+    cursor: pointer;
+}
+
+#description{
+    width: 99%;
+    height: 100px;
+}
+
+.themeImg{
+    width: 20%;
+}

@@ -26,10 +26,27 @@
         </ul>
     </nav>
 
-    <div class="container">
         <?php
+            echo '<div class="container">';
             $conn = mysqli_connect("localhost", "root", "", "theme_arrangement");
-            $sql = "select * from themes";
+            echo '<div class="main">';
+            if(isset($_POST['tag']))
+            {
+                $filterT = $_POST['tag'];
+                $ts = join("','",$filterT);   
+                $sql = "select theme_id from theme_tag where tag in ('$ts')";
+                $themeids = mysqli_query($conn, $sql);
+                while($ids = mysqli_fetch_array($themeids))
+                {
+                    $rows[] = $ids["theme_id"];
+                }
+                $tids = join("','",$rows); 
+                $sql = "select * from themes where id in ('$tids')";
+            }
+            else
+            {
+                $sql = "select * from themes";
+            }
             $themes = mysqli_query($conn, $sql);
             while($row = mysqli_fetch_array($themes))
             {
@@ -46,36 +63,61 @@
                         </button></form></div>';
             }
 
-            echo '<button onclick="creatTheme()"> Create </button>';
+            echo '<button onclick="creatTheme()" class="btn"> Create </button>';
+            echo '</div>';
+
+            $sql = "select * from tags";
+            $tags = mysqli_query($conn, $sql);
+            echo '<div class="side">';
+            echo '<div>
+                <form method="POST" action="themePage.php" id="filterForm">';
+            while($row = mysqli_fetch_array($tags))
+            {
+                if(isset($_POST['tag'])) 
+                {
+                    $filterT = $_POST['tag'];
+                    $count = count($filterT);
+                    for($i=0; $i < $count; $i++)
+                    {
+                        if($filterT[$i] == $row[name])
+                        {
+                            $check = "checked";
+                        }
+                    }
+                }
+                echo '<label class="filter"><input type="checkbox" name="tag[]" class="filterBox" id="filter'. $check .'" value="' . $row[name] . '">' . $row[name] . '  </label><br><br>';
+                $check = "";
+            } 
+            echo '<input type="submit" class="btn" value="Filter">
+                <input type="reset" class="btn" onclick="resetCheckbox()" value="reset">
+                </form> </div> </div>';
+            echo '</div>';
 
             //create dialog
-            if(empty($_POST[themeid]))
+            $sql = "select * from tags";
+            $tags = mysqli_query($conn, $sql);
+            echo '<dialog id="createThemeDialog">
+                    <button id = "closeDia" onClick="closeCD()">X</button>
+                    <form method="POST" action="/themeArrangement/creatTheme.php" enctype="multipart/form-data">';
+                    //session user
+            // echo '      <input name="host" type="hidden" value="' . $row[host] . '">';
+            echo '      <input name="host" type="hidden" value="0">
+                        <label for="title">Title*:</label><br>
+                        <input type="text" id="title" name="title" placeholder="Theme of the conference" required><br><br>
+                        <label for="time">Time:</label><br>
+                        <input type="date" id="time" name="time" required><br><br>
+                        <input type="file" name="file" accept="image/*"><br><br>
+                        <label for="description">Description:</label><br>
+                        <textarea type="text" id="description" name="description" maxlength="500" placeholder=""></textarea><br><br>
+                        <img class="icon" src="./icon/tag.png" style="width:2%;">';
+            while($row = mysqli_fetch_array($tags))
             {
-                $sql = "select * from tags";
-                $tags = mysqli_query($conn, $sql);
-                echo '<dialog id="createThemeDialog">
-                        <form method="POST" action="/themeArrangement/creatTheme.php" enctype="multipart/form-data">';
-                        //session user
-                // echo '      <input name="host" type="hidden" value="' . $row[host] . '">';
-                echo '      <button id = "closeDia" onclick="closeDialog()">X</button>
-                            <input name="host" type="hidden" value="0">
-                            <label for="title">Title*:</label><br>
-                            <input type="text" id="title" name="title" placeholder="Theme of the conference" required><br><br>
-                            <label for="time">Time:</label><br>
-                            <input type="date" id="time" name="time" required><br><br>
-                            <input type="file" name="file" accept="image/*"><br><br>
-                            <label for="description">Description:</label><br>
-                            <textarea type="text" id="description" name="description" maxlength="500" placeholder=""></textarea><br><br>
-                            <img class="icon" src="./icon/tag.png" style="width:2%;">';
-                while($row = mysqli_fetch_array($tags))
-                {
-                    echo '<label><input type="checkbox" name="tag[]" value="' . $row[name] . '">' . $row[name] . '  </label>';
-                }
-                echo        '<br><br>
-                            <input type="submit" name="create" value="Submit">
-                        </form> 
-                    </dialog>';            
+                echo '<label><input type="checkbox" name="tag[]" value="' . $row[name] . '">' . $row[name] . '  </label>';
             }
+            echo        '<br><br>
+                        <input type="submit" class="btn" name="create" value="Submit">
+                    </form> 
+                </dialog>';  
 
 
             //edit and view dialog
@@ -95,11 +137,11 @@
                 //if session user == host
                     if(false)
                     {
-                        echo '<dialog id="editThemeDialog" open>
+                        echo '<dialog id="editThemeDialog">
+                                <button id = "closeDia" onClick="closeED()">X</button>
                                 <form method="POST" action="/themeArrangement/editTheme.php" enctype="multipart/form-data">';
                         echo '      <input name="themeid" type="hidden" value="' . $row[id] . '">
                                     <input name="host" type="hidden" value="' . $row[host] . '">
-                                    <button id = "closeDia" onclick="closeEDDialog()">X</button>
                                     <label for="title">Title*:</label><br>
                                     <input type="text" id="title" name="title" value=" '. $row[title] . '" required><br><br>
                                     <label for="file">Original Image:<label><br>';
@@ -132,24 +174,24 @@
                             $check = "";
                         }
                         echo       '<br><br>
-                                    <input type="submit" name="update" value="Update">
+                                    <input type="submit" class="btn" name="update" value="Update">
                                     </form> 
                                     <form method="POST" action="/themeArrangement/deleteTheme.php">
                                         <input name="themeid" type="hidden" value="' . $row[id] . '">
-                                        <input type="submit" name="delete" value="Delete">
+                                        <input type="submit" class="btn" name="delete" value="Delete">
                                     </form>
                             </dialog>'; 
                     }
                     else
                     {
-                        echo '<dialog id="viewThemeDialog" open>
+                        echo '<dialog id="viewThemeDialog">
+                                <button id = "closeDia" onClick="closeVD()">X</button>
                                 <form method="POST" action="/themeArrangement/join.php" enctype="multipart/form-data">';
                         echo '      <input name="themeid" type="hidden" value="' . $row[id] . '">
                                     <input name="attendee" type="hidden" value="1">';
                                     //session user
                                     // <input name="attendee" type="hidden" value="'.$_SESSION[] . '">
-                        echo '      <button id = "closeDia" onclick="closeVDialog()">X</button>
-                                    <label for="title">Title:</label>
+                        echo '      <label for="title">Title:</label>
                                     <input type="text" id="title" name="title" value=" '. $row[title] . '" readonly="readonly"><br><br>';
                                     if($row[img] != "null")
                                     {
@@ -193,20 +235,19 @@
                         }
 
                         echo       '<br><br>
-                                    <input type="submit" name="join" value="Join" ' . $disBtn . '>
+                                    <input type="submit" class="btn" name="join" value="Join" ' . $disBtn . '>
                                     </form> 
                                     <form method="POST" action="/themeArrangement/cancel.php">
                                         <input name="themeid" type="hidden" value="' . $row[id] . '">
                                         <input name="attendee" type="hidden" value="1">';
                                         //session user
                                         // <input name="attendee" type="hidden" value="'.$_SESSION[] . '">
-                        echo       '    <input type="submit" name="cancel" value="Cancel"' . $disCancel . '>
+                        echo       '    <input type="submit" class="btn" name="cancel" value="Cancel"' . $disCancel . '>
                                     </form>
                             </dialog>'; 
                         $disBtn = "";
                         $disCancel = "";
                     }
-                    
                 }           
             }
 
@@ -220,27 +261,49 @@
                 {
                     createDia.show();
                 }
-
-                function closeDialog()
+                function closeCD()
                 {
                     createDia.close();
                 }
 
                 var editDia = document.getElementById("editThemeDialog");
-                function closeEDDialog()
+                if(editDia)
+                {
+                    editDia.show();
+                }
+                function closeED()
                 {
                     editDia.close();
                 }
 
                 var viewDia = document.getElementById("viewThemeDialog");
-                function closeVDialog()
+                if(viewDia)
+                {
+                    viewDia.show();
+                }
+                function closeVD()
                 {
                     viewDia.close();
-                }            
+                }
+
+
+                var filterChecked = document.querySelectorAll("#filterchecked"); 
+                filterChecked.forEach(item => {
+                    console.log("item");
+                    item.checked = true;
+                    })
+                function resetCheckbox()
+                {
+                    var filterCheckbox = document.querySelectorAll(".filterBox"); 
+                    filterCheckbox.forEach(item => {
+                        console.log("item");
+                        item.checked = false;
+                      })
+                }
+                          
             </script>'
 
         ?>
-    </div>
 
     <footer id="footer">
         Copyright &copy; 

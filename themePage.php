@@ -19,8 +19,8 @@
     <nav>
         <!-- FIXME:連結 -->
         <ul class="menu">
-            <li id="rightHere"><a href="">首頁</a></li>
-            <li><a href="">我的議程</a></li>
+            <li id="rightHere"><a href="/themeArrangement/themePage.php">首頁</a></li>
+            <li><a href="/themeArrangement/myThemePage.php">我的議程</a></li>
             <li><a href="">懲罰轉盤</a></li>
             <li class="register"><a href="">會員登入</a></li>
         </ul>
@@ -58,6 +58,15 @@
                 if($row[img] != "null")
                 {
                     echo '<img class="themeImg" src="' . $row[img] . '">';                
+                }
+                if(isset($_POST['tag'])) 
+                {
+                    $filterT = $_POST['tag'];
+                    $count = count($filterT);
+                    for($i=0; $i < $count; $i++)
+                    {
+                        echo '<input name="tag[]" type="hidden" value="' . $filterT[$i] . '">';
+                    }
                 }
                 echo '  <div>' . $row[time] . '</div>
                         </button></form></div>';

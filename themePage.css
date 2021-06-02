@@ -73,6 +73,7 @@ nav #rightHere a:hover{
     flex: 25%;
     margin: 5% 5% 20% 0;
     border-radius: 5px;
+    height: 400px;
     background-color: #fffacd;
 }
 
@@ -91,7 +92,7 @@ nav #rightHere a:hover{
 }
 
 #createThemeDialog{
-    position: absolute;
+    position: fixed;
     top: 25%;
     background-color:#dfdffff5;
     border: 0px;
@@ -100,7 +101,7 @@ nav #rightHere a:hover{
 }
 
 #editThemeDialog{
-    position: absolute;
+    position: fixed;
     top: 25%;
     background-color:#dfdffff5;
     border: 0px;
@@ -109,7 +110,7 @@ nav #rightHere a:hover{
 }
 
 #viewThemeDialog{
-    position: absolute;
+    position: fixed;
     top: 25%;
     background-color:#dfdffff5;
     border: 0px;

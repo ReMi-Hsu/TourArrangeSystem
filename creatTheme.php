@@ -37,6 +37,11 @@
         // $sql = "insert into themes (id, title, img, host, description) values($new_id, '$_POST[title]', '$file_path', $_POST[host], '$des')";
         $themes = mysqli_query($conn, $sql);
 
+        //session user
+        $sql = "insert into participation (theme_id, attendee_id) values($new_id, 0)";
+        // $sql = "insert into participation (theme_id, attendee_id) values($new_id, $_POST[host])";
+        mysqli_query($conn, $sql);
+
         if(isset($_POST['tag'])) 
         {
             $tag = $_POST['tag'];

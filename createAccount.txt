@@ -1,0 +1,53 @@
+CREATE TABLE account (
+	id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	email VARCHAR(100) NOT NULL,
+	password VARCHAR(30) NOT NULL,
+	name VARCHAR(100) NOT NULL,
+	birthday DATE NOT NULL,
+	sex VARCHAR(1) NOT NULL,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE valid (
+	valid_id VARCHAR(25) NOT NULL,
+	email VARCHAR(100) NOT NULL,
+	password VARCHAR(100) NOT NULL,
+	name VARCHAR(100) NOT NULL,
+	birthday DATE NOT NULL,
+	sex VARCHAR(50) NOT NULL,
+	PRIMARY KEY(valid_id)
+);
+
+CREATE TABLE themes (
+	id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	title VARCHAR(50) NOT NULL,
+	img VARCHAR(100) NOT NULL,
+	host INT UNSIGNED NOT NULL,
+	description VARCHAR(500) NOT NULL,
+	time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	PRIMARY KEY(id),
+	 FOREIGN KEY(host) REFERENCES account(id)
+);
+
+CREATE TABLE theme_tag(
+	theme_id INT UNSIGNED NOT NULL,
+	tag VARCHAR(25) NOT NULL,
+	PRIMARY KEY(theme_id,tag),
+	FOREIGN KEY(theme_id) REFERENCES themes(id),
+    FOREIGN KEY(tag) REFERENCES tags(name)
+);
+
+CREATE TABLE tags(
+	name VARCHAR(25) NOT NULL,
+	PRIMARY KEY(name)
+);
+
+CREATE TABLE participation(
+	theme_id INT UNSIGNED NOT NULL,
+	attendee_id INT UNSIGNED NOT NULL,
+	PRIMARY KEY(theme_id,attendee_id),
+	FOREIGN KEY(theme_id) REFERENCES themes(id),
+    FOREIGN KEY(attendee_id) REFERENCES account(id)
+);
+
+Fatal error: Uncaught PHPMailer\PHPMailer\Exception: SMTP Error: Could not authenticate. in C:\xampp\htdocs\Xamphp_10902\mail\PHPMailer\src\PHPMailer.php:2131 

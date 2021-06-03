@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTFF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Arrangement</title>
+    <link href='./themePage.css' rel='stylesheet'/>
+    <style>
+        
+        #createThemeDialog{
+            background-color:#dfdfffb0;
+            border: 0px;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- <?php
+        $conn = mysqli_connect("localhost", "root", "", "theme_arrangement");
+        $sql = "select * from themes";
+        $themes = mysqli_query($conn, $sql);
+        while($row = mysqli_fetch_array($themes))
+        {
+            echo "<h3>" . $row[title] . "</h3>";
+            echo "<div>Host : " . $row[host] . "</div>";
+            echo "<img src='./image/" . $row[img] . "'>";
+        }
+        
+    ?> -->
+    <button onclick="creatTheme()"> Create </button>
+    <dialog id="createThemeDialog"></dialog>
+    
+    <script>
+        var dia = document.getElementById("createThemeDialog");
+        function creatTheme()
+        {
+            dia.show();
+        }
+    </script>
+</body>
+</html>

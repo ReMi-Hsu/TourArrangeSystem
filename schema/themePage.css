@@ -1,0 +1,171 @@
+body{
+    margin: 0px;
+    background-color: bisque;
+}
+
+header{
+    background-color: rgb(255 239 182);
+}
+
+.menu{
+    width: 81%;
+    margin: 0 auto;
+}
+
+#iconImg{
+    width: 25%;
+    margin: 2% 0 2% 4%;
+}
+
+nav{
+    background: rgb(66, 56, 56);
+}
+
+nav li{
+    display: inline;
+    line-height: 4em;
+    margin-left: 3.2%;
+    text-align: center;
+}
+
+nav li a{
+    color: rgb(202, 202, 202);
+    text-decoration: none;
+    font-size: 3vmin;
+    border-left:3px solid #c1c1d3;
+}
+
+nav .register{
+    position: absolute;
+    right: 14.2%;
+}
+
+nav #rightHere a{
+    color: #fff;
+    font-size: 3vmin;
+    border-left:3px solid #fffb2b;
+}
+
+nav li a:hover{
+    color:rgb(255, 246, 208);
+    cursor: pointer;
+    border-left:3px solid #dabd5d;
+}
+
+nav #rightHere a:hover{
+    cursor: pointer;
+}
+
+.container{
+    width: 81%;
+    background-color: bisque;
+    margin: 0 auto;
+    display: flex;
+}
+
+.main{
+    /* width: 80%; */
+    margin: 0 0 0 5%;
+    flex: 75%;
+}
+
+.side{
+    flex: 25%;
+    margin: 5% 5% 20% 0;
+    border-radius: 5px;
+    height: 400px;
+    background-color: #fffacd;
+}
+
+.themes{
+    background-color:#f1f1f1;
+    border: 0px;
+    border-radius: 5px;
+    margin-top: 2%;
+    width: 90%;
+    text-align: left;
+}
+
+.themes:hover{
+    background-color:#b8bebe;
+    cursor: pointer;
+}
+
+#createThemeDialog{
+    position: fixed;
+    top: 25%;
+    background-color:#dfdffff5;
+    border: 0px;
+    border-radius: 20px;
+    width: 50%;
+}
+
+#editThemeDialog{
+    position: fixed;
+    top: 25%;
+    background-color:#dfdffff5;
+    border: 0px;
+    border-radius: 20px;
+    width: 50%;
+}
+
+#viewThemeDialog{
+    position: fixed;
+    top: 25%;
+    background-color:#dfdffff5;
+    border: 0px;
+    border-radius: 20px;
+    width: 50%;
+}
+
+#closeDia{
+    border: 0px;
+    float: right;
+    background-color: transparent;
+    width: 10px;
+    height: 10px;
+    outline:none;
+}
+
+#closeDia:hover{
+    cursor: pointer;
+}
+
+#description{
+    width: 99%;
+    height: 100px;
+}
+
+.themeImg{
+    width: 20%;
+}
+
+.btn{
+    width: 80px;
+    height: 30px;
+}
+
+#filterForm{
+    margin: 10% 0 0 10%;
+}
+
+.filter{
+    font-size: 3vmin;
+}
+
+.filterBox{
+    zoom: 1.5;
+}
+
+.filterBox:hover{
+    cursor: pointer;
+}
+
+#footer{
+    background: rgb(66, 56, 56);
+    color: white;
+    text-align: center;
+    font-size: 2.2vmin;
+    line-height: 3em;
+    font-family: sans-serif;
+}

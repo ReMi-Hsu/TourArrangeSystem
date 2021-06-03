@@ -15,7 +15,7 @@
                 $_SESSION['email']=$row['email'];
                 $_SESSION['name']=$row['name'];
                 $_SESSION['birthday']=$row['birthday'];
-                $_SESSION['sex']=$row['sex'];
+                // $_SESSION['sex']=$row['sex'];
                 header("location: ../main/myThemePage.php");
             }
             else

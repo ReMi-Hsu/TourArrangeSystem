@@ -10,13 +10,13 @@
     $PostPsw = $_POST['password'];
     $PostN = $_POST['name'];
     $PostB = $_POST['birthday'];
-    $PostS = $_POST['sex'];
+    // $PostS = $_POST['sex'];
 
-    $sql="update account set name='$PostN',birthday='$PostB',sex='$PostS' where email='$SessionM'";
+    $sql="update account set name='$PostN',birthday='$PostB' where email='$SessionM'";
     $result=mysqli_query($conn, $sql);
-    $text='您的會員資料已成功修改\n'. '姓名: '. $PostN . '\n生日: '.$PostB. '\n性別: '.$PostS;
+    $text='您的會員資料已成功修改\n'. '姓名: '. $PostN . '\n生日: '.$PostB. '';
     $_SESSION['name']=$PostN;
     $_SESSION['birthday']=$PostB;
-    $_SESSION['sex']=$PostS;
+    // $_SESSION['sex']=$PostS;
     echo "<script>alert('$text');window.location.href='../main/myThemePage.php';</script>";
 ?>

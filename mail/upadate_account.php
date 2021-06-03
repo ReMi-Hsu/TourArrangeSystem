@@ -77,10 +77,10 @@
             Email:&nbsp;<?php echo $_SESSION['email'] ?> <br>
             *姓名:&nbsp;&nbsp; <input type="text" name="name" value="<?php echo $_SESSION['name'] ?>" required ><br>
             *生日:&nbsp;&nbsp; <input type="date" value="<?php echo $_SESSION['birthday'] ?>" name="birthday" required ><br>
-            *性別:&nbsp;&nbsp; <select name="sex" value="<?php echo $_SESSION['sex'] ?>" required ><br>
+            <!-- *性別:&nbsp;&nbsp; <select name="sex" value="" required ><br>
                     <option value="女">女</option>
                     <option value="男">男</option>
-                </select><br>
+                </select><br> -->
             <input type="reset" value="重設" >
             <input type="submit" value="提交">
         </form>

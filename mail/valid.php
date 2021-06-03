@@ -9,10 +9,12 @@
         if($num>0)
         {
             $row=mysqli_fetch_assoc($result);
-            $sql="insert into account values ('Null','$row[email]','$row[password]','$row[name]', '$row[birthday]', '$row[sex]' )";
+            $sql="insert into account(`email`, `password`, `name`, `birthday`) values ('$row[email]','$row[password]','$row[name]', '$row[birthday]' )";
             $result=mysqli_query($conn, $sql);
+            echo $sql;
             $sql="delete from valid where email='$_GET[email]'";
             $result=mysqli_query($conn, $sql);
+            
             echo"<script>alert('歡迎您加入會員');window.location.href='./login.php';</script>";
         }
         else

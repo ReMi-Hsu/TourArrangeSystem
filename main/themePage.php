@@ -54,6 +54,7 @@
                     <li class='register'><a href='../mail/main.php'>Hello, ".$SessionN."</a></li>
                     </ul>
                 </nav>";
+                $themeAction = "themePage.php";
             }
             else{
                 echo 
@@ -66,6 +67,7 @@
                     <li class='register'><a href='../mail/login.php'>會員登入</a></li>
                     </ul>
                 </nav>";
+                $themeAction = "../mail/login.php";
             }
 
             /*** get all themes ***/
@@ -93,13 +95,13 @@
                         {
                             $tids = -1;
                         }
-                        $sql = "select * from themes where id in ('$tids')";
+                        $sql = "select * from themes where id in ('$tids') and TO_DAYS(NOW()) - TO_DAYS(time) <= 0 ORDER BY time ASC";
                     }
                 }
             }
             else
             {
-                $sql = "select * from themes";
+                $sql = 'select * from themes where TO_DAYS(NOW()) - TO_DAYS(time) <= 0 ORDER BY time ASC';
             }
 
             // each dialog data
@@ -110,7 +112,7 @@
                 $sql = "select name from account where id = '$RowH'";
                 $name_result = mysqli_query($conn, $sql);
                 $host_name = mysqli_fetch_array($name_result);
-                echo '<div><form method="POST" action="themePage.php">
+                echo '<div><form method="POST" action="'. $themeAction .'">
                         <input name="themeid" type="hidden" value="' . $row['id'] . '">
                         <button class="themes" type ="submit" value="">
                         <h2>' . $row['title'] . '</h2>
@@ -128,6 +130,7 @@
                         echo '<input name="tag[]" type="hidden" value="' . $filterT[$i] . '">';
                     }
                 }
+               
                 echo '  <div>' . $row['time'] . '</div>
                         </button></form></div>';
             }
@@ -173,7 +176,7 @@
                         <label for="title">Title*:</label><br>
                         <input type="text" id="title" name="title" placeholder="Theme of the conference" required><br><br>
                         <label for="time">Time:</label><br>
-                        <input type="date" id="time" name="time" required><br><br>
+                        <input type="datetime-local" id="time" name="time" required><br><br>
                         <input type="file" name="file" accept="image/*"><br><br>
                         <label for="description">Description:</label><br>
                         <textarea type="text" id="description" name="description" maxlength="500" placeholder=""></textarea><br><br>
@@ -222,7 +225,7 @@
                                     }
                         echo '      <input type="file" name="file" accept="image/*"><br><br>
                                     <label for="time">Time:</label><br>
-                                    <input type="date" id="time" name="time" value=' . $row['time'] . ' required><br><br>
+                                    <input type="datetime-local" id="time" name="time" value= "'. date('Y-m-d\TH:i', strtotime($row['time'])) .'" required><br><br>
                                     <label for="description">Description:</label><br>
                                     <textarea type="text" id="description" name="description" maxlength="500">' . $row['description'] . '</textarea><br><br>
                                     <img class="icon" src="../schema/icon/tag.png" style="width:2%;">';
@@ -271,7 +274,7 @@
                                         echo 'NULL';
                                     }
                         echo '      <label for="time">Time:</label>
-                                    <input type="date" id="time" name="time" value=' . $row['time'] . ' required><br><br>
+                                    <input type="datetime-local" id="time" name="time" value="' . date('Y-m-d\TH:i', strtotime($row['time'])) . '" readonly="readonly"><br><br>
                                     <label for="description">Description:</label><br>
                                     <textarea type="text" id="description" name="description" readonly="readonly">' . $row['description'] . '</textarea><br><br>
                                     <img class="icon" src="../schema/icon/tag.png" style="width:2%;">';
@@ -379,6 +382,12 @@
                         item.checked = false;
                     })
                 }
+
+                // window.onload = function()
+                // {
+                //     t = new Date();
+                //     console.log(t);
+                // }
                         
             </script>';     
         ?>

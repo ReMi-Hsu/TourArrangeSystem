@@ -10,6 +10,7 @@
 
     if(isset($_POST['create']))
     {
+        console.log("create");
         $conn = mysqli_connect("localhost", "root", "", "theme_arrangement");
 
         if($_FILES['file']['name'])
@@ -37,7 +38,7 @@
         }
         $PostTitle = $_POST['title'];
         $PostTime = $_POST['time'];
-        $sql = "insert into themes values('Null', '$PostTitle', '$file_path', $HostID, '$des', '$PostTime')";
+        $sql = "insert into themes values('0', '$PostTitle', '$file_path', $HostID, '$des', '$PostTime')";
         $themes = mysqli_query($conn, $sql);
 
         $sql = "select id from themes order by id desc limit 1";

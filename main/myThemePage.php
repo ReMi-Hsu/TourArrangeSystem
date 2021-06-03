@@ -105,7 +105,7 @@
                                     $rows2[] = $ids2["theme_id"];
                                 }
                                 $atttids = join("','",$rows2);
-                                $sql = "select * from themes where id in ('$tids') and id in ('$atttids')";
+                                $sql = "select * from themes where id in ('$tids') and id in ('$atttids') and TO_DAYS(NOW()) - TO_DAYS(time) <= 0 ORDER BY time ASC";
                             }
                         }
                     }
@@ -124,7 +124,7 @@
                             $rows0[] = $ids["theme_id"];
                         }
                         $atttids = join("','",$rows0);
-                        $sql = "select * from themes where id in ('$atttids')";
+                        $sql = "select * from themes where id in ('$atttids') and TO_DAYS(NOW()) - TO_DAYS(time) <= 0 ORDER BY time ASC";
                     }
                 }
             }
@@ -219,8 +219,9 @@
                                 {
                                     echo 'NULL';
                                 }
-                    echo '      <label for="time">Time:</label>
-                                <input type="date" id="time" name="time" value=' . $row['time'] . ' required><br><br>
+                    echo '      <br><br>
+                                <label for="time">Time:</label>
+                                <input type="datetime-local" id="time" name="time" value="' . date('Y-m-d\TH:i', strtotime($row['time'])) . '" readonly="readonly"><br><br>
                                 <label for="description">Description:</label><br>
                                 <textarea type="text" id="description" name="description" readonly="readonly">' . $row['description'] . '</textarea><br><br>
                                 <img class="icon" src="../schema/icon/tag.png" style="width:2%;">';

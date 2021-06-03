@@ -71,10 +71,10 @@
             *密碼:&nbsp;&nbsp; <input type="password" name="password" pattern="[a-zA-Z0-9]{8,}">&nbsp;&nbsp;請輸入8位或以上之字母或數字<br>
             *姓名:&nbsp;&nbsp; <input type="text" name="name" required ><br>
             *生日:&nbsp;&nbsp; <input type="date" name="birthday" required ><br>
-            *性別:&nbsp;&nbsp; <select name="sex" required ><br>
-                    <option value="女">女</option>
-                    <option value="男">男</option>
-                </select><br>
+            <!-- *性別:&nbsp;&nbsp; <select name="sex" required ><br> -->
+                    <!-- <option value="女">女</option>
+                    <option value="男">男</option> -->
+                <!-- </select><br> -->
             <input type="reset" value="重設" >
             <input type="submit" value="提交">
         </form>

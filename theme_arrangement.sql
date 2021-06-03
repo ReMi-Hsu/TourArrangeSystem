@@ -33,7 +33,7 @@ CREATE TABLE `account` (
   `password` varchar(30) NOT NULL,
   `name` varchar(100) NOT NULL,
   `birthday` date NOT NULL,
-  `sex` varchar(1) NOT NULL
+  -- `sex` varchar(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -107,7 +107,7 @@ CREATE TABLE `valid` (
   `password` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
   `birthday` date NOT NULL,
-  `sex` varchar(50) NOT NULL
+  -- `sex` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --

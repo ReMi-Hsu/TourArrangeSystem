@@ -1,10 +1,3 @@
-<?php
-    session_start();
-    if(!($_SESSION['email']))
-    {
-        header("location:./login.php?act=1");
-    }
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,7 +87,7 @@
                 $PostPsw = $_POST['password'];
                 $PostN = $_POST['name'];
                 $PostB = $_POST['birthday'];
-                $PostS = $_POST['sex'];
+                // $PostS = $_POST['sex'];
             
                 $conn=mysqli_connect("localhost", "root","","theme_arrangement");
                 $sql="select email from account where email='$PostM'";
@@ -128,31 +121,32 @@
                         }
                     }
                     
-                    $sql="insert into valid values('$id','$PostM','$PostPsw','$PostN','$PostB','$PostS');";
+                    $sql="insert into valid values('$id','$PostM','$PostPsw','$PostN','$PostB');";
                     $result=mysqli_query($conn, $sql);
                     if($result)
                     {
                         /*** email ***/ 
                         $mail = new PHPMailer(true);
+                        // $mail->SMTPDebug = 2;
                         $mail->isSMTP();                                            //Send using SMTP
                         $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
                         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-                        $mail->Username   = 'tina50336@gmail.com';                     //SMTP username
-                        $mail->Password   = 'qooqoo1122';                               //SMTP password
+                        $mail->Username   = 'o7777777o30@gmail.com';                     //SMTP username
+                        $mail->Password   = 'o07284670O';                               //SMTP password
                         $mail->SMTPSecure = 'ssl';         // 'tls' //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
                         $mail->Port       = 465;                                   // 587 //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
-                        $link="http://localhost/Xamphp_10902/mail/valid.php?email=".$PostM."&id=".$id;
+                        $link="http://localhost/TourArrangeSystem/mail/valid.php?email=".$PostM."&id=".$id;
                         $body="歡迎加入行程安排系統<br>請按連結進行驗證:<a href=$link>驗證</a>";
                         $mail->CharSet = "utf-8";
                         //Recipients
-                        $mail->setFrom('tina50336@gmail.com', '行程安排系統');
+                        $mail->setFrom('o7777777o30@gmail.com', '行程安排系統');
                         $mail->addAddress($PostM, $PostN);     //Add a recipient
                         //Content
                         $mail->isHTML(true);                                  //Set email format to HTML
                         $mail->Subject = '行程安排系統註冊驗證';
                         $mail->Body    = $body;
                         $mail->send();
-                        echo "<script>alert('您的驗證信已寄至$PostM');window.location.href='./login.php';</script>";
+                        echo "<script>alert('您的驗證信已寄至$PostM'); window.location.href='./login.php';</script>";
                         /*** email end ***/
                     } 
                 } 

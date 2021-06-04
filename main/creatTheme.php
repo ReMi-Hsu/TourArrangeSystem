@@ -7,6 +7,10 @@
     $result=mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
     $HostID = $row['id'];
+    $sql = "select t.id, t.time , p.attendee_id, p.is_valid
+            from themes as t, participation as p
+            where t.id = p.theme_id";
+    $all_theme_attendee_result=mysqli_query($conn, $sql);
 
     if(isset($_POST['create']))
     {
@@ -38,14 +42,14 @@
         }
         $PostTitle = $_POST['title'];
         $PostTime = $_POST['time'];
-        $sql = "insert into themes values('0', '$PostTitle', '$file_path', $HostID, '$des', '$PostTime')";
+        $sql = "insert into themes values('0', '$PostTitle', '$file_path', $HostID, '$des', '$PostTime')"; // id will modify by db
         $themes = mysqli_query($conn, $sql);
 
         $sql = "select id from themes order by id desc limit 1";
         $new_theme_conn = mysqli_query($conn, $sql);
         $new_theme = mysqli_fetch_assoc($new_theme_conn);
         $new_id = $new_theme['id'];
-        $sql = "insert into participation (theme_id, attendee_id) values($new_id, $HostID)";
+        $sql = "insert into participation values($new_id, $HostID, true)";
         mysqli_query($conn, $sql);
 
         if(isset($_POST['tag'])) 
@@ -58,6 +62,13 @@
                 echo $sql;
                 $tags = mysqli_query($conn, $sql);
             }
+        }
+
+        // ? whether you add <select name = invites></select> or not
+        foreach ($_POST['invites'] as $selectedOption){
+            $sql = "insert into participation values($new_id, $selectedOption, false)";
+            echo $sql."<br>";
+            $tags = mysqli_query($conn, $sql);
         }
     }
 

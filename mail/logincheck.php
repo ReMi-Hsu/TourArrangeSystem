@@ -27,11 +27,11 @@
                 if($num>0)
                 {
                     $text='您的帳號尚未完成認證\n'. '請先至您的信箱點選驗證連結';
-                    echo "<script>alert('$text');window.location.href='./login.php';</script>";
+                    echo "<script>alert('$text');window.location.href='./login.php?act=1';</script>";
                 }
                 else
                 {
-                    echo "<script>alert('您的email或密碼錯誤');window.location.href='./login.php';</script>";
+                    echo "<script>alert('您的email或密碼錯誤');window.location.href='./login.php?act=1';</script>";
                 }
             } 
         }

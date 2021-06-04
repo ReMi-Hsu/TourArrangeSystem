@@ -47,18 +47,18 @@
                 "<nav>
                     <ul class='menu'>
                     <li id='rightHere'><a href='./themePage.php'>首頁</a></li>
-                    <li><a href='./myThemePage.php'>我的議程</a></li>
-                    <li><a href='../invite/acceptInvite.php'>議程邀請</a></li>
+                    <li><a href='./myThemePage.php'>我的活動</a></li>
+                    <li><a href='../invite/acceptInvite.php'>活動邀請</a></li>
                     <li><a href='../turn/turningTable.php'>懲罰轉盤</a></li>
-                    <li class='register'><a href='../mail/main.php'> Hello, ".$SessionN."</a></li>
+                    <li class='register' id='logined' onmouseover='openAccount()'><a> Hello, ".$SessionN."</a></li>
                     </ul>
                 </nav>";
 
                 echo
                 '<select name="page" id="pageSelect" onchange="javascript:window.location.href=this.options[this.selectedIndex].value">
                     <option value="./themePage.php" selected>首頁</option>
-                    <option value="./myThemePage.php">我的議程</option>
-                    <option value="../invite/acceptInvite.php">議程邀請</option>
+                    <option value="./myThemePage.php">我的活動</option>
+                    <option value="../invite/acceptInvite.php">活動邀請</option>
                     <option value="../turn/turningTable.php">懲罰轉盤</option>
                     <option value="../mail/main.php"> Hello, '.$SessionN.'</option>
                 </select>';
@@ -69,9 +69,9 @@
                 "<nav>
                     <ul class='menu'>
                     <li id='rightHere'><a href='./themePage.php'>首頁</a></li>
-                    <li><a href='../mail/login.php'>我的議程</a></li>
-                    <li><a href='../mail/login.php'>議程邀請</a></li>
-                    <li><a href='../mail/login.php'>懲罰轉盤</a></li>
+                    <li><a href='../mail/login.php?act=1'>我的活動</a></li>
+                    <li><a href='../mail/login.php?act=1'>活動邀請</a></li>
+                    <li><a href='../mail/login.php?act=1'>懲罰轉盤</a></li>
                     <li class='register'><a href='../mail/login.php'>會員登入</a></li>
                     </ul>
                 </nav>";
@@ -79,12 +79,12 @@
                 echo
                 '<select name="page" id="pageSelect" onchange="javascript:window.location.href=this.options[this.selectedIndex].value">
                     <option value="./themePage.php" selected>首頁</option>
-                    <option value="../mail/login.php">我的議程</option>
-                    <option value="../mail/login.php">議程邀請</option>
-                    <option value="../mail/login.php">懲罰轉盤</option>
-                    <option value="../mail/login.php">會員登入</option>
+                    <option value="../mail/login.php?act=1">我的活動</option>
+                    <option value="../mail/login.php?act=1">活動邀請</option>
+                    <option value="../mail/login.php?act=1">懲罰轉盤</option>
+                    <option value="../mail/login.php?act=1">會員登入</option>
                 </select>';
-                $themeAction = "../mail/login.php";
+                $themeAction = "../mail/login.php?act=1";
             }
 
             /*** get all themes ***/
@@ -192,6 +192,8 @@
             echo '</div>';
 
             //create dialog
+            $sql = "select id, name from account";
+            $account = mysqli_query($conn, $sql);
             $sql = "select * from tags";
             $tags = mysqli_query($conn, $sql);
             echo '<div id="blackMask">
@@ -204,7 +206,16 @@
                             <label for="time">Time:</label><br>
                             <input type="datetime-local" id="time" name="time" required><br><br>
                             <input type="file" name="file" accept="image/*"><br><br>
-                            <label for="description">Description:</label><br>
+                            <label for="invite">Invite:</label><br>';
+            echo '          <select class="attSelect" name="invites[]" multiple size="3">';
+                            while($row_account = mysqli_fetch_array($account)){
+                                if($row_account['id']!=$HostID){
+                                    $name = $row_account['name'];
+                                    echo '<option value='.$row_account['id'].'>' . $name .'  </option>';
+                                }
+                            }
+            echo '      </select><br>';
+            echo '          <label for="description">Description:</label><br>
                             <textarea type="text" id="description" name="description" maxlength="500" placeholder=""></textarea><br><br>
                             <img class="icon" src="../schema/icon/tag.png" style="width:2%;"><br>';
                 $count = 0;
@@ -228,6 +239,8 @@
             if(isset($_POST['themeid']))
             {
                 $t_id = $_POST['themeid'];
+                $sql = "select id, name from account";
+                $account = mysqli_query($conn, $sql);
                 $sql = "select * from themes where id = $t_id";
                 $theme = mysqli_query($conn, $sql);
                 $sql = "select * from theme_tag where theme_id = $t_id";
@@ -253,12 +266,62 @@
                                         {
                                             echo '<img class="themeDiaImg" src="' . $row['img'] . '">';                
                                         }
-                                        else
-                                        {
-                                            echo 'NULL';
-                                        }
-                            echo '      <input type="file" name="file" accept="image/*"><br><br>
-                                        <label for="time">Time:</label><br>
+                            echo '      <input type="file" name="file" accept="image/*"><br><br>';
+                            echo '      <label for="attendees">Attendees: </label>';
+                                            $isFirst=true;
+                                            $sql = "select id, name from account";
+                                            $account = mysqli_query($conn, $sql);
+                                            while($row_account = mysqli_fetch_array($account)){
+                                                $sql = "select * from participation where theme_id = $t_id";
+                                                $t_att = mysqli_query($conn, $sql);
+                                                while($row_att =  mysqli_fetch_array($t_att))
+                                                {
+                                                    if($row_account['id'] == $row_att['attendee_id']){
+                                                        if($isFirst){
+                                                            $isFirst=false;
+                                                            echo '<label>' . $row_account['name'].'  </label>';
+                                                        }
+                                                        else{
+                                                            echo '<label>, ' . $row_account['name'].'  </label>';
+                                                        }
+                                                    }
+                                                }
+                                            }
+                            echo '          <br>';
+                            echo '          <label for="invite">Invite:</label><br>
+                                            <select class="attSelect" name="invites[]" multiple size="3">';
+                                            $sql = "select id, name from account";
+                                            $account = mysqli_query($conn, $sql);
+                                            while($row_account = mysqli_fetch_array($account)){
+                                                //echo ''.$row_account['id'].'<br>';
+                                                $name = $row_account['name'];
+                                                $isValid = false;
+                                                $isInvite = false;
+                                                $sql = "select * from participation where theme_id = '$t_id'";
+                                                $t_att = mysqli_query($conn, $sql);
+                                                while($row_att =  mysqli_fetch_array($t_att))
+                                                {
+                                                    //echo ''.$row_att['attendee_id'].'<br>';
+                                                    if($row_account['id'] == $row_att['attendee_id']){
+                                                        if($row_att['is_valid'] == true){
+                                                            $isValid = true;
+                                                        }
+                                                        else{
+                                                            $isInvite = true;
+                                                        }
+                                                    }
+                                                }
+                                                if($isValid==false){
+                                                    if($isInvite==true){
+                                                        echo '<option value='.$row_account['id'].' selected>' . $name .'  </option>';
+                                                    }
+                                                    else{
+                                                        echo '<option value='.$row_account['id'].'>' . $name .'  </option>';
+                                                    }
+                                                }
+                                            }
+                                echo '      </select><br>';
+                        echo '          <label for="time">Time:</label><br>
                                         <input type="datetime-local" id="time" name="time" value= "'. date('Y-m-d\TH:i', strtotime($row['time'])) .'" required><br><br>
                                         <label for="description">Description:</label><br>
                                         <textarea type="text" id="description" name="description" maxlength="500">' . $row['description'] . '</textarea><br><br>
@@ -295,7 +358,7 @@
                     }
                     else
                     {
-                        $BtnToPage = "../mail/login.php";
+                        $BtnToPage = "../mail/login.php?act=1";
                         if($HostID!=-1){
                             $BtnToPage = "./join.php";
                         }
@@ -306,15 +369,32 @@
                             echo '      <input name="themeid" type="hidden" value="' . $row['id'] . '">
                                         <input name="attendee" type="hidden" value="'.$HostID.'">';
                             echo '      <label for="title">Title:</label><br>
-                                        <input type="text" id="title" name="title" value=" '. $row['title'] . '" readonly="readonly"><br><br>';
+                                        <input type="text" id="title" name="title" value=" '. $row['title'] . '" readonly="readonly"><br>';
                                         if($row['img'] != "null")
                                         {
                                             echo '<img class="themeDiaImg" src="' . $row['img'] . '">';                
                                         }
-                                        else
+                                        echo '      <label for="attendees">Attendees: </label>';
+                                    $isFirst=true;
+                                    $sql = "select id, name from account";
+                                    $account = mysqli_query($conn, $sql);
+                                    while($row_account = mysqli_fetch_array($account)){
+                                        $sql = "select * from participation where theme_id = '$t_id' and is_valid=true";
+                                        $t_att = mysqli_query($conn, $sql);
+                                        while($row_att =  mysqli_fetch_array($t_att))
                                         {
-                                            echo 'NULL';
+                                            if($row_account['id'] == $row_att['attendee_id']){
+                                                if($isFirst){
+                                                    $isFirst=false;
+                                                    echo '<label>' . $row_account['name'].'  </label>';
+                                                }
+                                                else{
+                                                    echo '<label>, ' . $row_account['name'].'  </label>';
+                                                }
+                                            }
                                         }
+                                    }
+                            echo '          <br>';          
                             echo '      <br><label for="time">Time:</label><br>
                                         <input type="datetime-local" id="time" name="time" value="' . date('Y-m-d\TH:i', strtotime($row['time'])) . '" readonly="readonly"><br><br>
                                         <label for="description">Description:</label><br>
@@ -340,6 +420,8 @@
                             }
 
                             $disBtn="";
+                            $sql = "select * from participation where theme_id = '$t_id' and is_valid=true";
+                            $t_att = mysqli_query($conn, $sql);
                             while($rowAtt = mysqli_fetch_array($t_att))
                             {
                                 if($rowAtt['attendee_id'] == $HostID)
@@ -373,6 +455,13 @@
                 }           
             }
 
+            echo '
+            <div class="select" id="select">
+                <a class="acc" href="../mail/logout.php">登出</a>&nbsp;<br>
+                <a class="acc" href="../mail/upadate_account.php">修改帳戶</a>&nbsp;<br>
+                <a class="acc" href="../mail/update_password.php">修改密碼</a>&nbsp;<br>
+            </div>';
+
             echo 
             '<script>
                 var createDia = document.getElementById("createThemeDialog");
@@ -381,7 +470,7 @@
                 {
                     if('.$HostID.'==-1)
                     {
-                        window.location.href = "../mail/login.php";
+                        window.location.href = "../mail/login.php?act=1";
                     }
                     else{
                         createDia.show();
@@ -400,7 +489,7 @@
                 {
                     if('.$HostID.'==-1)
                     {
-                        window.location.href = "../mail/login.php";
+                        window.location.href = "../mail/login.php?act=1";
                     }
                     else{
                         editDia.show();
@@ -490,7 +579,18 @@
                         tc[1].append(item);
                     })
                 }
-                        
+                       
+                let target=document.getElementById("select");
+                let lo=document.getElementById("logined");
+                target.style.display="none";
+                function openAccount()
+                {
+                    target.style.display="block";
+                    lo.append(target);
+                    setTimeout(function() {
+                        target.style.display="none";
+                    }, 4000);
+                }
             </script>';     
         ?>
 

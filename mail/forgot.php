@@ -48,8 +48,8 @@
                 "<nav>
                     <ul class='menu'>
                     <li><a href='../main/themePage.php'>首頁</a></li>
-                    <li><a href='../main/myThemePage.php'>我的議程</a></li>
-                    <li><a href='../invite/acceptInvite.php'>議程邀請</a></li>
+                    <li><a href='../main/myThemePage.php'>我的活動</a></li>
+                    <li><a href='../invite/acceptInvite.php'>活動邀請</a></li>
                     <li><a href='../turn/turningTable.php'>懲罰轉盤</a></li>
                     <li class='register' id='rightHere'><a href='../mail/main.php'>Hello, ".$SessionN."</a></li>
                     </ul>
@@ -58,8 +58,8 @@
                 echo
                 '<select name="page" id="pageSelect" onchange="javascript:window.location.href=this.options[this.selectedIndex].value">
                     <option value="../main/themePage.php">首頁</option>
-                    <option value="../main/myThemePage.php">我的議程</option>
-                    <option value="../invite/acceptInvite.php">議程邀請</option>
+                    <option value="../main/myThemePage.php">我的活動</option>
+                    <option value="../invite/acceptInvite.php">活動邀請</option>
                     <option value="../turn/turningTable.php">懲罰轉盤</option>
                     <option value="../mail/main.php" selected> Hello, '.$SessionN.'</option>
                 </select>';
@@ -69,9 +69,9 @@
                 "<nav>
                     <ul class='menu'>
                     <li><a href='../main/themePage.php'>首頁</a></li>
-                    <li><a href='../mail/login.php'>我的議程</a></li>
-                    <li><a href='../mail/login.php'>議程邀請</a></li>
-                    <li><a href='../mail/login.php'>懲罰轉盤</a></li>
+                    <li><a href='../mail/login.php?act=1'>我的活動</a></li>
+                    <li><a href='../mail/login.php?act=1'>活動邀請</a></li>
+                    <li><a href='../mail/login.php?act=1'>懲罰轉盤</a></li>
                     <li class='register' id='rightHere'><a href='../mail/login.php'>會員登入</a></li>
                     </ul>
                 </nav>";
@@ -79,18 +79,21 @@
                 echo
                 '<select name="page" id="pageSelect" onchange="javascript:window.location.href=this.options[this.selectedIndex].value">
                     <option value="../main/themePage.php">首頁</option>
-                    <option value="../mail/login.php">我的議程</option>
-                    <option value="../mail/login.php">議程邀請</option>
-                    <option value="../mail/login.php">懲罰轉盤</option>
-                    <option value="../mail/login.php" selected>會員登入</option>
+                    <option value="../mail/login.php?act=1">我的活動</option>
+                    <option value="../mail/login.php?act=1">活動邀請</option>
+                    <option value="../mail/login.php?act=1">懲罰轉盤</option>
+                    <option value="../mail/login.php?act=1" selected>會員登入</option>
                 </select>';
             }    
         ?>
-        <form method="POST" action="./sentpassword.php">
-            Email:&nbsp;<input type="email" name="email" required ><br>
-            <input type="reset" value="重設" >
-            <input type="submit" value="提交">
-        </form>
+        <div class="loginForm" style="margin: 5% auto 20% auto">
+           <h3 style="margin: 0">忘記密碼</h3>
+            <form method="POST" id="loginForm" action="./sentpassword.php">
+                Email:&nbsp;<input type="email" name="email" id="accContent" required ><br>
+                    <input type="reset" class="btn" value="重設" >
+                    <input type="submit" class="btn" value="提交">
+            </form>
+        </div>
 
     <footer id="footer">
         Copyright &copy; 

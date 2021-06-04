@@ -54,8 +54,8 @@
                 "<nav>
                     <ul class='menu'>
                     <li><a href='../main/themePage.php'>首頁</a></li>
-                    <li><a href='../main/myThemePage.php'>我的議程</a></li>
-                    <li><a href='../invite/acceptInvite.php'>議程邀請</a></li>
+                    <li><a href='../main/myThemePage.php'>我的活動</a></li>
+                    <li><a href='../invite/acceptInvite.php'>活動邀請</a></li>
                     <li><a href='../turn/turningTable.php'>懲罰轉盤</a></li>
                     <li class='register' id='rightHere'><a href='../mail/main.php'>Hello, ".$SessionN."</a></li>
                     </ul>
@@ -64,8 +64,8 @@
                 echo
                 '<select name="page" id="pageSelect" onchange="javascript:window.location.href=this.options[this.selectedIndex].value">
                     <option value="../main/themePage.php">首頁</option>
-                    <option value="../main/myThemePage.php">我的議程</option>
-                    <option value="../invite/acceptInvite.php">議程邀請</option>
+                    <option value="../main/myThemePage.php">我的活動</option>
+                    <option value="../invite/acceptInvite.php">活動邀請</option>
                     <option value="../turn/turningTable.php">懲罰轉盤</option>
                     <option value="../mail/main.php" selected> Hello, '.$SessionN.'</option>
                 </select>';
@@ -75,9 +75,9 @@
                 "<nav>
                     <ul class='menu'>
                     <li><a href='../main/themePage.php'>首頁</a></li>
-                    <li><a href='../mail/login.php'>我的議程</a></li>
-                    <li><a href='../mail/login.php'>議程邀請</a></li>
-                    <li><a href='../mail/login.php'>懲罰轉盤</a></li>
+                    <li><a href='../mail/login.php?act=1'>我的活動</a></li>
+                    <li><a href='../mail/login.php?act=1'>活動邀請</a></li>
+                    <li><a href='../mail/login.php?act=1'>懲罰轉盤</a></li>
                     <li class='register' id='rightHere'><a href='../mail/login.php'>會員登入</a></li>
                     </ul>
                 </nav>";
@@ -85,24 +85,64 @@
                 echo
                 '<select name="page" id="pageSelect" onchange="javascript:window.location.href=this.options[this.selectedIndex].value">
                     <option value="../main/themePage.php">首頁</option>
-                    <option value="../mail/login.php">我的議程</option>
-                    <option value="../mail/login.php">議程邀請</option>
-                    <option value="../mail/login.php">懲罰轉盤</option>
-                    <option value="../mail/login.php" selected>會員登入</option>
+                    <option value="../mail/login.php?act=1">我的活動</option>
+                    <option value="../mail/login.php?act=1">活動邀請</option>
+                    <option value="../mail/login.php?act=1">懲罰轉盤</option>
+                    <option value="../mail/login.php?act=1" selected>會員登入</option>
                 </select>';
             }    
         ?>
-        <form method="POST" action="updatep.php">
-            原本密碼:&nbsp;&nbsp; <input type="password" name="password" pattern="[a-zA-Z0-9]{8,}">&nbsp;&nbsp;<br>
-            新密碼:&nbsp;&nbsp; <input type="password" name="newpassword1" pattern="[a-zA-Z0-9]{8,}">&nbsp;&nbsp;請輸入8位或以上之字母或數字<br>
-            重新輸入密碼:&nbsp;&nbsp; <input type="password" name="newpassword2" pattern="[a-zA-Z0-9]{8,}">&nbsp;&nbsp;請輸入8位或以上之字母或數字<br>
-            <input type="reset" value="重設" >
-            <input type="submit" value="提交">
-        </form>
+        <div class="loginForm">
+            <form method="POST" action="updatep.php" id="loginForm" style="margin-top: 5%; padding: 0px 0px 0px 20%;">
+                原本密碼:&emsp;&emsp;&nbsp; <input type="password" id="opsw" name="password" pattern="{8,}" style="margin-top: 5%">
+                <span  id="len"><font color="#4CAF50">ok</font></span><br>
+                新密碼:&emsp;&emsp;&emsp;&nbsp; <input type="password" id="psw1" name="newpassword1" pattern="{8,}" style="margin-top: 5%">
+                <span  id="len1"><font color="#4CAF50">ok</font></span><div style="font-size:1vmin">請輸入8位以上</div>
+                重新輸入密碼:&nbsp; <input type="password" id="psw2" name="newpassword2" pattern="{8,}" style="margin-top: 5%">
+                <span  id="len2"><font color="#4CAF50">ok</font></span><div style="font-size:1vmin">請輸入8位以上</div><br>
+                <div style="display:flex; float: right;">
+                <input type="reset" class="btn" value="重設" >
+                <input type="submit" class="btn" value="提交">
+                </div>
+            </form>
+        </div>
 
     <footer id="footer">
         Copyright &copy; 
         <!-- FIXME:團隊 -->
     </footer>
+
+    <script>
+        var myInput = document.getElementById("opsw");
+        var myInput1 = document.getElementById("psw1");
+        var myInput2 = document.getElementById("psw2");
+        var len = document.getElementById("len");
+        var len1 = document.getElementById("len1");
+        var len2 = document.getElementById("len2");
+        len.style.display="none";
+        len1.style.display="none";
+        len2.style.display="none";
+        myInput.onkeyup = function() {
+            if(myInput.value.length >= 8) {
+            len.style.display="inline";
+        } else {
+            len.style.display="none";
+        }
+        }
+        myInput1.onkeyup = function() {
+            if(myInput1.value.length >= 8) {
+            len1.style.display="inline";
+        } else {
+            len1.style.display="none";
+        }
+        }
+        myInput2.onkeyup = function() {
+            if(myInput2.value.length >= 8) {
+            len2.style.display="inline";
+        } else {
+            len2.style.display="none";
+        }
+        }
+    </script>
 </body>
 </html>

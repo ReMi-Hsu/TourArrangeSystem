@@ -11,7 +11,7 @@
         }
         else if($_GET['act']==3)
         {
-            echo "<script>alert('請先註冊');window.location.href='./login.php';</script>";
+            echo "<script>alert('請先註冊');window.location.href='./login.php?act=1';</script>";
         }
     }
 ?>
@@ -64,8 +64,8 @@
                 "<nav>
                     <ul class='menu'>
                     <li><a href='../main/themePage.php'>首頁</a></li>
-                    <li><a href='../main/myThemePage.php'>我的議程</a></li>
-                    <li><a href='../invite/acceptInvite.php'>議程邀請</a></li>
+                    <li><a href='../main/myThemePage.php'>我的活動</a></li>
+                    <li><a href='../invite/acceptInvite.php'>活動邀請</a></li>
                     <li><a href='../turn/turningTable.php'>懲罰轉盤</a></li>
                     <li class='register' id='rightHere'><a href='../mail/main.php'>Hello, ".$SessionN."</a></li>
                     </ul>
@@ -74,8 +74,8 @@
                 echo
                 '<select name="page" id="pageSelect" onchange="javascript:window.location.href=this.options[this.selectedIndex].value">
                     <option value="../main/themePage.php">首頁</option>
-                    <option value="../main/myThemePage.php">我的議程</option>
-                    <option value="../invite/acceptInvite.php">議程邀請</option>
+                    <option value="../main/myThemePage.php">我的活動</option>
+                    <option value="../invite/acceptInvite.php">活動邀請</option>
                     <option value="../turn/turningTable.php">懲罰轉盤</option>
                     <option value="../mail/main.php" selected> Hello, '.$SessionN.'</option>
                 </select>';
@@ -85,9 +85,9 @@
                 "<nav>
                     <ul class='menu'>
                     <li><a href='../main/themePage.php'>首頁</a></li>
-                    <li><a href='../mail/login.php'>我的議程</a></li>
-                    <li><a href='../mail/login.php'>議程邀請</a></li>
-                    <li><a href='../mail/login.php'>懲罰轉盤</a></li>
+                    <li><a href='../mail/login.php?act=1'>我的活動</a></li>
+                    <li><a href='../mail/login.php?act=1'>活動邀請</a></li>
+                    <li><a href='../mail/login.php?act=1'>懲罰轉盤</a></li>
                     <li class='register' id='rightHere'><a href='../mail/login.php'>會員登入</a></li>
                     </ul>
                 </nav>";
@@ -95,20 +95,24 @@
                 echo
                 '<select name="page" id="pageSelect" onchange="javascript:window.location.href=this.options[this.selectedIndex].value">
                     <option value="../main/themePage.php">首頁</option>
-                    <option value="../mail/login.php">我的議程</option>
-                    <option value="../mail/login.php">議程邀請</option>
-                    <option value="../mail/login.php">懲罰轉盤</option>
-                    <option value="../mail/login.php" selected>會員登入</option>
+                    <option value="../mail/login.php?act=1">我的活動</option>
+                    <option value="../mail/login.php?act=1">活動邀請</option>
+                    <option value="../mail/login.php?act=1">懲罰轉盤</option>
+                    <option value="../mail/login.php?act=1" selected>會員登入</option>
                 </select>';
             }    
         ?>
-        <a href='form.php'>註冊</a><br>
-        <form method="POST" action="./logincheck.php">
-            Email:&nbsp;<input type="email" name="email" required><br>
-            密碼:&nbsp;&nbsp; <input type="password" name="password" pattern="[a-zA-Z0-9]{8,}"><br>
-            <input type="button" name="forgot" value="忘記密碼" onClick="location.href='forgot.php'">
-            <input type="submit" value="提交">
-        </form>
+        <div class="loginForm">
+            <form method="POST" id="loginForm" action="./logincheck.php">
+               <input type="button" class="btn" id="regBtn" name="forgot" value="註冊" onClick="location.href='form.php'"><br>
+                Email:&nbsp;&nbsp; <input type="email" name="email" id="accContent" required><br>
+                密碼:&nbsp;&nbsp; <input type="password" name="password" id="accContent" pattern="{8,}"><br>
+                <div style="display:flex; float: right;">
+                <input type="button" class="btn" name="forgot" value="忘記密碼" onClick="location.href='forgot.php'">
+                <input type="submit" class="btn" id="loginBtn" value="登入">
+                </div>
+            </form>
+        </div>
 
     <footer id="footer">
         Copyright &copy; 

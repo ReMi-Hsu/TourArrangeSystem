@@ -1,0 +1,40 @@
+#inviteDiv {
+    background-color: #f1f1f1;
+    border: 0px;
+    border-radius: 5px;
+    margin: 1% 0;
+    width: 90%;
+    text-align: left;
+    height: 100px;
+    z-index: 5;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  #inviteDiv #inviteBtn {
+    background-color: transparent;
+    border: 0px;
+    border-radius: 5px;
+    margin-left: 1%;
+    text-align: left;
+    height: 100px;
+    flex-grow: 5;
+  }
+  #inviteDiv .invContainer {
+    flex-grow: 5;
+  }
+  
+  #inviteDiv .invContainer #Invsubmit {
+    margin-right: 20px;
+    float: right;
+  }
+  
+  .viewTDialog {
+    position: fixed;
+    top: 25%;
+    background-color: #dfdffff5;
+    border: 0px;
+    border-radius: 20px;
+    width: 50%;
+  }
+  

@@ -7,6 +7,18 @@
         $theme = mysqli_query($conn, $sql);
         $row = mysqli_fetch_array($theme);
 
+        $sql = "delete from participation where theme_id = '".$tid."' and is_valid = false";
+        echo $sql. "<br>";
+        $deleted = mysqli_query($conn, $sql);
+        // ? whether you add <select name = invites></select> or not
+        if(isset($_POST['invites'])){
+            foreach ($_POST['invites'] as $selectedOption){
+                $sql = "insert into participation values($tid, $selectedOption, false)";
+                echo $sql."<br>";
+                $ins_result = mysqli_query($conn, $sql);
+            }
+        }
+
         // while($row = mysqli_fetch_array($theme))
         // {
             if($_FILES['file']['name'])

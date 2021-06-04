@@ -13,7 +13,8 @@
 <body>
     <header id="header">
         <a href="./themePage.php">
-            <img id="iconImg" src="../schema/resource/logo.png">
+            <!-- <img id="iconImg" src="../schema/resource/logo.png"> -->
+            <div id="system">TURNING TOUR</div>
         </a>
     </header>
 
@@ -72,7 +73,6 @@
             echo '<div class="container">';
             $conn = mysqli_connect("localhost", "root", "", "theme_arrangement");
             echo '<div class="main">';
-
             // get all dialog of login account and tag filter
             if(isset($_POST['tag']))
             {
@@ -129,6 +129,9 @@
                 }
             }
 
+            //for layout
+            echo '<div style="margin: 6.4% 100% 0% 0%; float: "right";"></div>';
+
             // each dialog data
             $themes = mysqli_query($conn, $sql);
             while($row = mysqli_fetch_array($themes))
@@ -139,12 +142,11 @@
                 $host_name = mysqli_fetch_array($name_result);
                 echo '<div><form method="POST" action="myThemePage.php">
                         <input name="themeid" type="hidden" value="' . $row['id'] . '">
-                        <button class="themes" type ="submit" value="">
-                        <h2>' . $row['title'] . '</h2>
-                        <div>Host : ' . $host_name['name'] . '</div>';
+                        <button class="themes" id="' . $row['id'] . '" type ="submit" onmouseover="overTheme('. $row[id] .')" onmouseleave="leaveTheme('. $row[id] .')" value="">
+                        <h2 class="themeTitle">' . $row['title'] . '</h2>';
                 if($row['img'] != "null")
                 {
-                    echo '<img class="themeImg" src="' . $row['img'] . '">';                
+                    echo '<img class="themeDiaImg" src="' . $row['img'] . '">';                
                 }
                 if(isset($_POST['tag'])) 
                 {
@@ -155,8 +157,12 @@
                         echo '<input name="tag[]" type="hidden" value="' . $filterT[$i] . '">';
                     }
                 }
-                echo '  <div>' . $row['time'] . '</div>
-                        </button></form></div>';
+                echo '  <div class="themeContentT">Host : <span class="themeContent">' . $host_name['name'] . '</span></div>
+                <div id="hideContent'. $row['id'] .'" class="hideContent">
+                <div class="themeContentT" id="description">Description : <span class="themeContent"><br>'. $row['description'] .'</span></div><br>
+                <div class="themeContentT">Time : <span class="themeContent" id="'. $row['id'] .'time">' . $row['time'] . '</span>
+                </div></div>
+                </button></form></div>';
             }
             echo '</div>';
 
@@ -184,13 +190,13 @@
                 echo '<label class="filter"><input type="checkbox" name="tag[]" class="filterBox" id="filter'. $check .'" value="' . $row['name'] . '">' . $row['name'] . '  </label><br><br>';
                 $check = "";
             } 
-            echo '<input type="submit" class="btn" value="Filter">
-                <input type="reset" class="btn" onclick="resetCheckbox()" value="reset">
+            echo '<div style="display:flex; float: right; margin: 0 5% 0 0;"><input type="submit" class="btn" value="Filter">
+                <input type="reset" class="btn" onclick="resetCheckbox()" value="reset"></div>
                 </form> </div> </div>';
             echo '</div>';
 
 
-            //edit and view dialog
+            //view dialog
             if(isset($_POST['themeid']))
             {
                 $t_id = $_POST['themeid'];
@@ -204,72 +210,107 @@
                 $t_att = mysqli_query($conn, $sql);
                 while($row = mysqli_fetch_array($theme))
                 {
-                    echo '<dialog id="viewThemeDialog">
-                            <button id = "closeDia" onClick="closeVD()">X</button>
-                            <form method="POST" action="" enctype="multipart/form-data">';
-                    echo '      <input name="themeid" type="hidden" value="' . $row['id'] . '">
-                                <input name="attendee" type="hidden" value="'.$HostID.'">';
-                    echo '      <label for="title">Title:</label>
-                                <input type="text" id="title" name="title" value=" '. $row['title'] . '" readonly="readonly"><br><br>';
-                                if($row['img'] != "null")
-                                {
-                                    echo '<img class="themeImg" src="' . $row['img'] . '">';                
-                                }
-                                else
-                                {
-                                    echo 'NULL';
-                                }
-                    echo '      <br><br>
-                                <label for="time">Time:</label>
-                                <input type="datetime-local" id="time" name="time" value="' . date('Y-m-d\TH:i', strtotime($row['time'])) . '" readonly="readonly"><br><br>
-                                <label for="description">Description:</label><br>
-                                <textarea type="text" id="description" name="description" readonly="readonly">' . $row['description'] . '</textarea><br><br>
-                                <img class="icon" src="../schema/icon/tag.png" style="width:2%;">';
-                    while($rowTags = mysqli_fetch_array($tags))
-                    {
-                        while($rowT = mysqli_fetch_array($t_tag))
+                    echo '<div id="blackMask2">
+                            <dialog class="dialogs"  id="viewThemeDialog">
+                                <button id = "closeDia" onClick="closeVD()">X</button>
+                                <form method="POST" action="" enctype="multipart/form-data">';
+                        echo '      <input name="themeid" type="hidden" value="' . $row['id'] . '">
+                                    <input name="attendee" type="hidden" value="'.$HostID.'">';
+                        echo '      <label for="title">Title:</label><br>
+                                    <input type="text" id="title" name="title" value=" '. $row['title'] . '" readonly="readonly"><br><br>';
+                                    if($row['img'] != "null")
+                                    {
+                                        echo '<img class="themeDiaImg" src="' . $row['img'] . '">';                
+                                    }
+                                    else
+                                    {
+                                        echo 'NULL';
+                                    }
+                        echo '      <br><br>
+                                    <label for="time">Time:</label><br>
+                                    <input type="datetime-local" id="time" name="time" value="' . date('Y-m-d\TH:i', strtotime($row['time'])) . '" readonly="readonly"><br><br>
+                                    <label for="description">Description:</label><br>
+                                    <textarea type="text" id="description" name="description" readonly="readonly">' . $row['description'] . '</textarea><br><br>
+                                    <img class="icon" src="../schema/icon/tag.png" style="width:2%;">';
+                        while($rowTags = mysqli_fetch_array($tags))
                         {
-                            if($rowTags['name'] == $rowT['tag'])
+                            while($rowT = mysqli_fetch_array($t_tag))
                             {
-                                echo '  <label> ' . $rowTags['name'] . '  </label>';
+                                if($rowTags['name'] == $rowT['tag'])
+                                {
+                                    echo '  <label class="filterGroup"> ' . $rowTags['name'] . '  </label>';
+                                }
                             }
+                                                
+                            mysqli_data_seek($t_tag, 0);
                         }
-                                            
-                        mysqli_data_seek($t_tag, 0);
-                    }
 
-                    echo       '<br><br>
-                                </form> 
-                        </dialog>'; 
+                        echo       '<br><br>
+                                    </form> 
+                            </dialog></div>'; 
                 }           
             }
 
             echo 
             '<script>
+                var diaMask2 = document.getElementById("blackMask2");
                 var viewDia = document.getElementById("viewThemeDialog");
                 if(viewDia)
                 {
                     viewDia.show();
+                    diaMask2.style.display = "block";
                 }
                 function closeVD()
                 {
                     viewDia.close();
+                    diaMask2.style.display = "none";
                 }
 
 
                 var filterChecked = document.querySelectorAll("#filterchecked"); 
                 filterChecked.forEach(item => {
-                    console.log("item");
                     item.checked = true;
                     })
                 function resetCheckbox()
                 {
                     var filterCheckbox = document.querySelectorAll(".filterBox"); 
                     filterCheckbox.forEach(item => {
-                        console.log("item");
                         item.checked = false;
                       })
                 }
+
+                function overTheme(themeId)
+                {
+                    var tid = "hideContent" + themeId;
+                    var hcId = document.getElementById(tid);
+                    hcId.style.maxHeight = "120px";
+                }
+
+                function leaveTheme(themeId)
+                {
+                    var tid = "hideContent" + themeId;
+                    var hcId = document.getElementById(tid);
+                    hcId.style.maxHeight = "0px";
+                }
+
+                today = new Date();
+                tomorrow = new Date();
+                tomorrow.setDate(today.getDate() + 1);
+
+                var allTheme = document.querySelectorAll(".themes"); 
+                allTheme.forEach(item => {
+                    var themeTime = document.getElementById(item.id + "time");
+                    tTime = new Date(themeTime.innerText);
+                    if(today.getYear() == tTime.getYear() && today.getMonth() == tTime.getMonth() &&
+                        today.getDate() == tTime.getDate())
+                    {
+                        item.style.backgroundColor = "rgb(224, 238, 255)";
+                        var td = document.createElement("span");
+                        td.innerText = " TODAY";
+                        td.style.color = "red";
+                        themeTime.appendChild(td);
+                    }
+                })
                           
             </script>'
 

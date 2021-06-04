@@ -13,7 +13,8 @@
 <body>
     <header id="header">
         <a href="../main/themePage.php">
-            <img id="iconImg" src="../schema/resource/logo.png">
+            <!-- <img id="iconImg" src="../schema/resource/logo.png"> -->
+            <div id="system">TURNING TOUR</div>
         </a>
     </header>
     

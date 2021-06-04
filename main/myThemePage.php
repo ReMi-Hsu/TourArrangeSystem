@@ -54,6 +54,15 @@
                     <li class='register'><a href='../mail/main.php'>Hello, ".$SessionN."</a></li>
                     </ul>
                 </nav>";
+
+                echo
+                '<select name="page" id="pageSelect" onchange="javascript:window.location.href=this.options[this.selectedIndex].value">
+                    <option value="./themePage.php">首頁</option>
+                    <option value="./myThemePage.php" selected>我的議程</option>
+                    <option value="../invite/acceptInvite.php">議程邀請</option>
+                    <option value="../turn/turningTable.php">懲罰轉盤</option>
+                    <option value="../mail/main.php"> Hello, '.$SessionN.'</option>
+                </select>';
             }
             else
             {
@@ -67,6 +76,15 @@
                     <li class='register'><a href='../mail/login.php'>會員登入</a></li>
                     </ul>
                 </nav>";
+
+                echo
+                '<select name="page" id="pageSelect" onchange="javascript:window.location.href=this.options[this.selectedIndex].value">
+                    <option value="./themePage.php">首頁</option>
+                    <option value="../mail/login.php" selected>我的議程</option>
+                    <option value="../mail/login.php">議程邀請</option>
+                    <option value="../mail/login.php">懲罰轉盤</option>
+                    <option value="../mail/login.php">會員登入</option>
+                </select>';
             }
 
             /*** get all themes ***/

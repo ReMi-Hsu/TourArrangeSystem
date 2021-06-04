@@ -75,6 +75,15 @@
                     <li class='register'><a href='../mail/login.php'>會員登入</a></li>
                     </ul>
                 </nav>";
+
+                echo
+                '<select name="page" id="pageSelect" onchange="javascript:window.location.href=this.options[this.selectedIndex].value">
+                    <option value="./themePage.php" selected>首頁</option>
+                    <option value="../mail/login.php">我的議程</option>
+                    <option value="../mail/login.php">議程邀請</option>
+                    <option value="../mail/login.php">懲罰轉盤</option>
+                    <option value="../mail/login.php">會員登入</option>
+                </select>';
                 $themeAction = "../mail/login.php";
             }
 

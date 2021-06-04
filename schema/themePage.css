@@ -82,15 +82,11 @@ nav #rightHere a:hover{
     background-color: #4b3b3b;
     background-clip:content-box;  
     color: wheat;
-    text-align: right;
-    text-align-last: right;
     display: none;
 }
 
 option{
     width: 100%;
-    text-align: right;
-    text-align-last: right;
 }
 
 .container{

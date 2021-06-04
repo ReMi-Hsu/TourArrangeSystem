@@ -60,6 +60,15 @@
                     <li class='register' id='rightHere'><a href='../mail/main.php'>Hello, ".$SessionN."</a></li>
                     </ul>
                 </nav>";
+
+                echo
+                '<select name="page" id="pageSelect" onchange="javascript:window.location.href=this.options[this.selectedIndex].value">
+                    <option value="../main/themePage.php">首頁</option>
+                    <option value="../main/myThemePage.php">我的議程</option>
+                    <option value="../invite/acceptInvite.php">議程邀請</option>
+                    <option value="../turn/turningTable.php">懲罰轉盤</option>
+                    <option value="../mail/main.php" selected> Hello, '.$SessionN.'</option>
+                </select>';
             }
             else{
                 echo 
@@ -72,6 +81,15 @@
                     <li class='register' id='rightHere'><a href='../mail/login.php'>會員登入</a></li>
                     </ul>
                 </nav>";
+                
+                echo
+                '<select name="page" id="pageSelect" onchange="javascript:window.location.href=this.options[this.selectedIndex].value">
+                    <option value="../main/themePage.php">首頁</option>
+                    <option value="../mail/login.php">我的議程</option>
+                    <option value="../mail/login.php">議程邀請</option>
+                    <option value="../mail/login.php">懲罰轉盤</option>
+                    <option value="../mail/login.php" selected>會員登入</option>
+                </select>';
             }    
         ?>
         <form method="POST" action="./updatea.php">

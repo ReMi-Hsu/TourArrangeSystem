@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Theme Arrangement</title>
     <link rel="stylesheet" href="../schema/themePage.css">
+    <link rel="stylesheet" href="../schema/invite.css">
 </head>
 <body>
     <header id="header">
@@ -92,7 +93,7 @@
                 /*** get all inivitations ***/
                 echo '
                     <div class="container">
-                        <div class="main" style = "height: 700px;">';
+                        <div class="main" style = "flex: 100%; height: 700px;">';
 
                 $conn = mysqli_connect("localhost", "root", "", "theme_arrangement");
                     
@@ -111,7 +112,7 @@
                     echo '
                             <div id = "inviteDiv">
                                 <button id="inviteBtn" onclick="showDialog('.$row_theme_id.')">
-                                    <span><b>'.$theme_h.'</b>已邀請你加入<b>'.$theme_n.'</b>議程</span>
+                                    <span><b>'.$theme_h.'</b> 已邀請你加入<b> '.$theme_n.' </b>活動</span>
                                 </button>
                                 <form method="POST" action="./accept.php" class = "invContainer">
                                     <input name="themeid" type="hidden" value="' . $row_theme_id . '">
@@ -120,7 +121,6 @@
                                     <input type="submit" class="btn" id="Invsubmit" name="accept" value="Accept">
                                 </form>
                             </div>';
-
                 }
                 echo '
                         </div>
@@ -150,22 +150,21 @@
                     $theme_time = $theme_row['time'];
                     $theme_d = $theme_row['description'];
 
-                    echo '
-                        <dialog class="viewTDialog" id = "viewInvThemeDia'.$row_theme_id.'">
+                    echo '<div class="blackMask" id="blackMask'.$row_theme_id.'">
+                        <dialog class="dialogs" id = "viewInvThemeDia'.$row_theme_id.'">
                             <button id = "closeDia" onClick="closeDialog('.$row_theme_id.')">X</button>
                             <form method="POST" action="" enctype="multipart/form-data">
                                 <input name="themeid" type="hidden" value="' . $row_theme_id . '">
                                 <input name="attendee" type="hidden" value="'.$HostID.'">
-                                <label for="title">Title:</label>
-                                <input type="text" id="title" name="title" value=" '. $theme_t . '" readonly="readonly"><br><br>';
+                                <label for="title">Title:</label><br>
+                                <input type="text" id="title" name="title" value="'. $theme_t . '" readonly="readonly"><br><br>';
                                 if($theme_i != "null")
                                 {
-                                    echo '<img class="themeImg" src="' . $theme_i . '"><br>';                
+                                    echo '<img class="themeImg" src="' . $theme_i . '"><br><br>';                
                                 }
-                    echo '      <label for="time">Time:</label>
-                                <input type="date" id="time" name="time" value=' . $theme_time . ' required readonly="readonly"><br><br>
-                                <label for="attendees">Attendees:</label>';
+                    echo '      <label for="attendees">Attendees:</label><br>';
                                 $isFirst=true;
+                                $attNames = "";
                                 while($row_account = mysqli_fetch_array($account)){
                                     $sql = "select * from participation where theme_id = $row_theme_id and is_valid = true";
                                     $t_att = mysqli_query($conn, $sql);
@@ -174,15 +173,18 @@
                                         if($row_account['id'] == $row_att['attendee_id']){
                                             if($isFirst){
                                                 $isFirst=false;
-                                                echo '<label>' . $row_account['name'].'  </label>';
+                                                $attNames = $attNames . $row_account['name'];
                                             }
                                             else{
-                                                echo '<label>, ' . $row_account['name'].'  </label>';
+                                                $attNames = $attNames . ", " . $row_account['name'];
                                             }
                                         }
                                     }
                                 }
-                    echo '      <br>';
+                    echo '      <input type="text" id="attendees" name="attendees" value="'.$attNames.'" readonly="readonly">
+                                <br><br><label for="time">Time:</label><br>
+                                <input type="date" id="time" name="time" id="time" value=' . $theme_time . ' required readonly="readonly"><br><br>';
+                                
                     echo '      <label for="description">Description:</label><br>
                                 <textarea type="text" id="description" name="description" readonly="readonly">' . $theme_d . '</textarea><br><br>
                                 <img class="icon" src="../schema/icon/tag.png" style="width:2%;">';
@@ -195,7 +197,7 @@
                         {
                             if($rowTags['name'] == $rowT['tag'])
                             {
-                                echo '  <label> ' . $rowTags['name'] . '  </label>';
+                                echo '  <label class="filterGroup"> ' . $rowTags['name'] . '  </label>';
                             }
                         }
                                             
@@ -205,7 +207,7 @@
                     echo '       <br><br>';
                     echo '
                             </form> 
-                        </dialog>'; 
+                        </dialog></div>'; 
                 }
             }
 
@@ -218,13 +220,18 @@
 
             echo'
             <script>
+                
                 function showDialog(i) {
+                    var diaMask2 = document.getElementById("blackMask" + i.toString());
                     var id = "viewInvThemeDia"+i.toString();
+                    diaMask2.style.display = "flex";
                     document.getElementById(id).open = true;
                 }
 
                 function closeDialog(i) {
+                    var diaMask2 = document.getElementById("blackMask" + i.toString());
                     var id= "viewInvThemeDia"+i.toString();
+                    diaMask2.style.display = "none";
                     document.getElementById(id).open = false;
                 }
 
@@ -237,7 +244,7 @@
                     lo.append(target);
                     setTimeout(function() {
                         target.style.display="none";
-                    }, 4000);
+                    }, 1000);
                 }
             </script>';
         ?>

@@ -108,7 +108,7 @@
                     target.style.display="block";
                     setTimeout(function() {
                         target.style.display="none";
-                    }, 4000);
+                    }, 1000);
                 }
             </script>';
         ?>

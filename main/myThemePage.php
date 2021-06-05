@@ -183,8 +183,8 @@
                     }
                     echo '  
                                     <div class="themeContentT">Host : <span class="themeContent">' . $host_name['name'] . '</span></div>
-                                    <div id="hideContent'. $row['id'] .'" class="hideContent">
-                                        <div class="themeContentT" id="description">Description : <span class="themeContent"><br>'. $row['description'] .'</span></div><br>
+                                    <div id="hideContent'. $row['id'] .'" class="hideContent"><br>
+                                        <div class="themeContentT" id="preDescription">Description : <span class="themeContent"><br>'. $row['description'] .'</span></div><br>
                                         <div class="themeContentT">Time : <span class="themeContent" id="'. $row['id'] .'time">' . $row['time'] . '</span></div>
                                     </div>
                                 </button>
@@ -250,13 +250,14 @@
                             echo '      <input name="themeid" type="hidden" value="' . $row['id'] . '">
                                         <input name="attendee" type="hidden" value="'.$HostID.'">';
                             echo '      <label for="title">Title:</label><br>
-                                        <input type="text" id="title" name="title" value=" '. $row['title'] . '" readonly="readonly"><br><br>';
+                                        <input type="text" id="title" name="title" value="'. $row['title'] . '" readonly="readonly"><br><br>';
                                         if($row['img'] != "null")
                                         {
                                             echo '<img class="themeDiaImg" src="' . $row['img'] . '"><br>';                
                                         }
-                            echo '       <label for="attendees">Attendees:</label>';
+                            echo '       <label for="attendees">Attendees:</label><br>';
                                     $isFirst=true;
+                                    $attNames = "";
                                     while($row_account = mysqli_fetch_array($account)){
                                         $sql = "select * from participation where theme_id = $t_id and is_valid = true";
                                         $t_att = mysqli_query($conn, $sql);
@@ -265,15 +266,15 @@
                                             if($row_account['id'] == $row_att['attendee_id']){
                                                 if($isFirst){
                                                     $isFirst=false;
-                                                    echo '<label>' . $row_account['name'].'  </label>';
+                                                    $attNames = $attNames . $row_account['name'];
                                                 }
                                                 else{
-                                                    echo '<label>, ' . $row_account['name'].'  </label>';
+                                                    $attNames = $attNames . ", " . $row_account['name'];
                                                 }
                                             }
                                         }
                                     }
-                            echo '         <br>';
+                            echo '      <input type="text" id="attendees" name="attendees" value="'.$attNames.'" readonly="readonly"><br><br>';
                             echo '      <label for="time">Time:</label><br>
                                         <input type="datetime-local" id="time" name="time" value="' . date('Y-m-d\TH:i', strtotime($row['time'])) . '" readonly="readonly"><br><br>';
                                     
@@ -315,8 +316,8 @@
                     var viewDia = document.getElementById("viewThemeDialog");
                     if(viewDia)
                     {
+                        diaMask2.style.display = "flex";
                         viewDia.show();
-                        diaMask2.style.display = "block";
                     }
                     function closeVD()
                     {
@@ -379,7 +380,7 @@
                         lo.append(target);
                         setTimeout(function() {
                             target.style.display="none";
-                        }, 4000);
+                        }, 1000);
                     }
                 </script>';
             }

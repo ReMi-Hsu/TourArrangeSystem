@@ -244,7 +244,7 @@
                             lo.append(target);
                             setTimeout(function() {
                                 target.style.display='none';
-                            }, 4000);
+                            }, 1000);
                         }
                     </script>";
                     echo "</div></div>";

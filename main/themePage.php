@@ -150,8 +150,8 @@
                 }
                
                 echo '  <div class="themeContentT">Host : <span class="themeContent" id="'. $row['id'] .'host">' . $host_name['name'] . '</span></div>
-                        <div id="hideContent'. $row['id'] .'" class="hideContent">
-                        <div class="themeContentT" id="description">Description : <span class="themeContent"><br>'. $row['description'] .'</span></div><br>
+                        <div id="hideContent'. $row['id'] .'" class="hideContent"><br>
+                        <div class="themeContentT" id="preDescription">Description : <span class="themeContent"><br>'. $row['description'] .'</span></div><br>
                         <div class="themeContentT">Time : <span class="themeContent" id="'. $row['id'] .'time">' . $row['time'] . '</span>
                         </div></div>
                         </button></form></div>';
@@ -260,15 +260,16 @@
                             echo '      <input name="themeid" type="hidden" value="' . $row['id'] . '">
                                         <input name="host" type="hidden" value="' . $row['host'] . '">
                                         <label for="title">Title*:</label><br>
-                                        <input type="text" id="title" name="title" value=" '. $row['title'] . '" required><br><br>
+                                        <input type="text" id="title" name="title" value="'. $row['title'] . '" required><br><br>
                                         <label for="file">Original Image:<label><br>';
                                         if($row['img'] != "null")
                                         {
                                             echo '<img class="themeDiaImg" src="' . $row['img'] . '">';                
                                         }
                             echo '      <input type="file" name="file" accept="image/*"><br><br>';
-                            echo '      <label for="attendees">Attendees: </label>';
+                            echo '      <label for="attendees">Attendees: </label><br>';
                                             $isFirst=true;
+                                            $attNames = "";
                                             $sql = "select id, name from account";
                                             $account = mysqli_query($conn, $sql);
                                             while($row_account = mysqli_fetch_array($account)){
@@ -279,15 +280,15 @@
                                                     if($row_account['id'] == $row_att['attendee_id']){
                                                         if($isFirst){
                                                             $isFirst=false;
-                                                            echo '<label>' . $row_account['name'].'  </label>';
+                                                            $attNames = $attNames . $row_account['name'];
                                                         }
                                                         else{
-                                                            echo '<label>, ' . $row_account['name'].'  </label>';
+                                                            $attNames = $attNames . ", " . $row_account['name'];
                                                         }
                                                     }
                                                 }
                                             }
-                            echo '          <br>';
+                            echo '          <input type="text" id="attendees" name="attendees" value="'.$attNames.'" readonly="readonly"><br>';
                             echo '          <label for="invite">Invite:</label><br>
                                             <select class="attSelect" name="invites[]" multiple size="3">';
                                             $sql = "select id, name from account";
@@ -320,7 +321,7 @@
                                                     }
                                                 }
                                             }
-                                echo '      </select><br>';
+                                echo '      </select><br><br>';
                         echo '          <label for="time">Time:</label><br>
                                         <input type="datetime-local" id="time" name="time" value= "'. date('Y-m-d\TH:i', strtotime($row['time'])) .'" required><br><br>
                                         <label for="description">Description:</label><br>
@@ -346,8 +347,7 @@
                                 }
                                 $count++;
                             }
-                            echo       '<br><br>
-                                        <div style="display:flex; float: right;">
+                            echo       '<div style="display:flex; float: right;">
                                         <input type="submit" class="btn" name="update" value="Update">
                                         </form> 
                                         <form method="POST" action="./deleteTheme.php">
@@ -369,13 +369,14 @@
                             echo '      <input name="themeid" type="hidden" value="' . $row['id'] . '">
                                         <input name="attendee" type="hidden" value="'.$HostID.'">';
                             echo '      <label for="title">Title:</label><br>
-                                        <input type="text" id="title" name="title" value=" '. $row['title'] . '" readonly="readonly"><br>';
+                                        <input type="text" id="title" name="title" value="'. $row['title'] . '" readonly="readonly"><br><br>';
                                         if($row['img'] != "null")
                                         {
-                                            echo '<img class="themeDiaImg" src="' . $row['img'] . '">';                
+                                            echo '<img class="themeDiaImg" src="' . $row['img'] . '"><br><br>';                
                                         }
-                                        echo '      <label for="attendees">Attendees: </label>';
+                                        echo '      <label for="attendees">Attendees: </label><br>';
                                     $isFirst=true;
+                                    $attNames = "";
                                     $sql = "select id, name from account";
                                     $account = mysqli_query($conn, $sql);
                                     while($row_account = mysqli_fetch_array($account)){
@@ -386,15 +387,15 @@
                                             if($row_account['id'] == $row_att['attendee_id']){
                                                 if($isFirst){
                                                     $isFirst=false;
-                                                    echo '<label>' . $row_account['name'].'  </label>';
+                                                    $attNames = $attNames . $row_account['name'];
                                                 }
                                                 else{
-                                                    echo '<label>, ' . $row_account['name'].'  </label>';
+                                                    $attNames = $attNames . ", " . $row_account['name'];
                                                 }
                                             }
                                         }
                                     }
-                            echo '          <br>';          
+                            echo '      <input type="text" id="attendees" name="attendees" value="'.$attNames.'" readonly="readonly"><br>';          
                             echo '      <br><label for="time">Time:</label><br>
                                         <input type="datetime-local" id="time" name="time" value="' . date('Y-m-d\TH:i', strtotime($row['time'])) . '" readonly="readonly"><br><br>
                                         <label for="description">Description:</label><br>
@@ -439,8 +440,7 @@
                                 $BtnToPage = "./cancel.php";
                             }
                             
-                            echo       '<br><br>
-                                        <div style="display:flex; float: right;">
+                            echo       '<div style="display:flex; float: right;">
                                         <input type="submit" class="btn" name="join" value="Join" ' . $disBtn . '>
                                         </form> 
                                         <form method="POST" action="'.$BtnToPage.'">
@@ -473,8 +473,8 @@
                         window.location.href = "../mail/login.php?act=1";
                     }
                     else{
+                        diaMask.style.display = "flex";
                         createDia.show();
-                        diaMask.style.display = "block";
                     }
                 }
                 function closeCD()
@@ -492,8 +492,8 @@
                         window.location.href = "../mail/login.php?act=1";
                     }
                     else{
+                        diaMask2.style.display = "flex";
                         editDia.show();
-                        diaMask2.style.display = "block";
                     }
                 }
                 function closeED()
@@ -505,8 +505,8 @@
                 var viewDia = document.getElementById("viewThemeDialog");
                 if(viewDia)
                 {
+                    diaMask2.style.display = "flex";
                     viewDia.show();
-                    diaMask2.style.display = "block";
                 }
                 function closeVD()
                 {
@@ -589,7 +589,7 @@
                     lo.append(target);
                     setTimeout(function() {
                         target.style.display="none";
-                    }, 4000);
+                    }, 1000);
                 }
             </script>';     
         ?>

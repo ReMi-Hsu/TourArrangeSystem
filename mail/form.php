@@ -87,13 +87,13 @@
         ?>
         <div class="loginForm">
             <form  class="form2" method="POST" id="loginForm" action="./register.php" style="margin-top: 5%">
-                <font color="red">* </font>Email:&nbsp;&nbsp;&nbsp;<input type="email" name="email" required >
+                <font color="red">* </font>Email:&nbsp;&nbsp;&nbsp;<input type="email" name="email" style="margin-left: 5%;" required >
                 <span class="ok">ok</span><br>
-                <font color="red">* </font>密碼:&nbsp;&nbsp; <input type="password" id="psw" pattern="{8,}" name="password" style="margin-top: 5%" required >
+                <font color="red">* </font>密碼:&nbsp;&nbsp; <input type="password" id="psw" pattern="{8,}" name="password" style="margin-top: 5%; margin-left: 5%;" required >
                 <span  id="len"><font color="#4CAF50">ok</font></span><div style="font-size:1vmin">&nbsp;&nbsp;&nbsp;&nbsp;請輸入8位以上</div>
-                <font color="red">* </font>姓名:&nbsp;&nbsp; <input type="text" name="name" style="margin-top: 5%" required >
+                <font color="red">* </font>姓名:&nbsp;&nbsp; <input type="text" name="name" style="margin-top: 5%; margin-left: 5%;" required >
                 <span class="ok">ok</span><br>
-                <font color="red">* </font>生日:&nbsp;&nbsp; <input type="date" name="birthday" style="margin-top: 5%" required >
+                <font color="red">* </font>生日:&nbsp;&nbsp; <input type="date" name="birthday" style="margin-top: 5%; margin-left: 5%;" required >
                 <span class="ok">ok</span><br>
                 <div style="display:flex; float: right;">
                 <input type="reset" class="btn" value="重設" >

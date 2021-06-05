@@ -1,5 +1,5 @@
 #inviteDiv {
-    background-color: #f1f1f1;
+    /* background-color: #f1f1f1;
     border: 0px;
     border-radius: 5px;
     margin: 1% 0;
@@ -9,7 +9,18 @@
     z-index: 5;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
+    align-items: center; */
+    display: flex;
+    flex-wrap: wrap;
+    border: 2px solid rosybrown;
+    background-color: #ffaeae;
+    border-radius: 5px;
+    margin-top: 5%;
+    margin-left: 2%;
+    width: 90%;
+    z-index: 5;
+    text-align: left;
+    box-shadow: 4px 4px 10px 0 rgb(125 125 125);
   }
   #inviteDiv #inviteBtn {
     background-color: transparent;
@@ -17,8 +28,10 @@
     border-radius: 5px;
     margin-left: 1%;
     text-align: left;
+    font-size: 3vmin;
     height: 100px;
     flex-grow: 5;
+    width: 100%;
   }
   #inviteDiv .invContainer {
     flex-grow: 5;
@@ -27,7 +40,25 @@
   #inviteDiv .invContainer #Invsubmit {
     margin-right: 20px;
     float: right;
+    border: 2px solid #fff;
+    color: #fff;
   }
+  
+  #inviteDiv .invContainer #Invsubmit:hover {
+      color: #fff;
+      outline: 0;
+      box-shadow: 0 0 40px 40px f7dddd inset;
+  }
+
+  .blackMask{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.3);
+    display: none;
+}
   
   .viewTDialog {
     position: fixed;

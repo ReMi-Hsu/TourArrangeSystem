@@ -177,7 +177,7 @@ option{
 }
 
 label{
-    font-size: 3vmin;
+    font-size: 2.5vmin;
 }
 
 .themes:hover{
@@ -213,7 +213,6 @@ label{
 
 .dialogs{
     position: fixed;
-    top: 15%;
     background-color:#ffeabef5;
     border: 4px;
     border-style: outset;
@@ -221,6 +220,11 @@ label{
     border-radius: 20px;
     width: 50%;
     box-shadow: 0 1px 10px 0 rgb(125 125 125);
+    justify-content: center;
+    align-items:center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }
 
 #closeDia{
@@ -238,10 +242,42 @@ label{
     cursor: pointer;
 }
 
+.attSelect{
+    width: 30%;
+    font-size: 2vmin;
+    border-radius: 5px;
+    border-color: burlywood;
+    border-style: inset;
+    border-width: 2px;
+}
+
+#title{
+    width: 30%;
+}
+
+#time{
+    width: 30%;
+}
+
+#attendees{
+    width: 30%;
+}
+
+#preDescription{
+    width: 99%;
+    word-break: break-all;
+    font-size: 2.5vmin;
+}
+
 #description{
     width: 99%;
     word-break: break-all;
     font-size: 2.5vmin;
+    border-radius: 5px;
+    border-color: burlywood;
+    border-style: inset;
+    border-width: 2px;
+    font-family: Arial Narrow, sans-serif;
 }
 
 .themeImg{
@@ -255,8 +291,9 @@ label{
 }
 
 input{
-    font-size: 2.5vmin;
+    font-size: 2vmin;
     border-radius: 5px;
+    border-color: burlywood;
 }
 
 .btn{
@@ -368,7 +405,7 @@ input{
 }
 
 #accContent{
-    margin: 5% 0 5% 0;
+    margin: 5% 0 5% 5%;
 }
 
 #regBtn{
@@ -422,7 +459,7 @@ form>input:invalid+.ok{
     }
 
     #accContent{
-        width: 100%;
+        width: 90%;
     }
 
     #loginForm{

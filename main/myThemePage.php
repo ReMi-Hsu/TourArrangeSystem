@@ -380,7 +380,7 @@
                         lo.append(target);
                         setTimeout(function() {
                             target.style.display="none";
-                        }, 1000);
+                        }, 2000);
                     }
                 </script>';
             }

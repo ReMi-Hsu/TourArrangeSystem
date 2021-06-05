@@ -273,7 +273,7 @@
                                             $sql = "select id, name from account";
                                             $account = mysqli_query($conn, $sql);
                                             while($row_account = mysqli_fetch_array($account)){
-                                                $sql = "select * from participation where theme_id = $t_id";
+                                                $sql = "select * from participation where theme_id = $t_id and is_valid = true";
                                                 $t_att = mysqli_query($conn, $sql);
                                                 while($row_att =  mysqli_fetch_array($t_att))
                                                 {
@@ -589,7 +589,7 @@
                     lo.append(target);
                     setTimeout(function() {
                         target.style.display="none";
-                    }, 1000);
+                    }, 2000);
                 }
             </script>';     
         ?>

@@ -32,7 +32,7 @@
                 }
                 else
                 {
-                    echo "<script>alert('您的email或密碼錯誤');window.location.href='./login.php?act=1';</script>";
+                    echo "<script>alert('您的email或密碼錯誤');window.location.href='./login.php';</script>";
                 }
             } 
         }

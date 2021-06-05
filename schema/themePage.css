@@ -79,6 +79,7 @@ nav #rightHere a:hover{
     font-size: 2vmin;
     width: 100%;
     text-align: left;
+    z-index: 10;
 }
 .acc:hover {
     background-color:#fafafa;

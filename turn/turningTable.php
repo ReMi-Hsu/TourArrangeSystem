@@ -263,7 +263,7 @@
         ?>
 
     <footer id="footer" style="margin-top:5%;">
-        Copyright &copy; 
+        © 2021 G3 B10732014 B10732016 B10732021. 
         <!-- FIXME:團隊 -->
     </footer>
 </body>

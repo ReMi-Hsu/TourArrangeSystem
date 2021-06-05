@@ -28,6 +28,7 @@
             require 'PHPMailer/src/SMTP.php';
 
             /*** check whether login or not ***/
+            /*
             $isLogin = false;
             $HostID = -1;
             if($_SESSION){
@@ -45,8 +46,9 @@
                     //echo "host id: ". $HostID ."<br>";
                 }
             }
-
+            */
             /*** display nav acoording to login status ***/
+            /*
             if($isLogin)
             {
                 $SessionN = $_SESSION['name'];
@@ -69,8 +71,8 @@
                     <option value="../turn/turningTable.php">懲罰轉盤</option>
                     <option value="../mail/main.php" selected> Hello, '.$SessionN.'</option>
                 </select>';
-            }
-            else{
+            }*/
+           // else{
                 echo 
                 "<nav>
                     <ul class='menu'>
@@ -90,7 +92,7 @@
                     <option value="../mail/login.php?act=1">懲罰轉盤</option>
                     <option value="../mail/login.php?act=1" selected>會員登入</option>
                 </select>';
-            }    
+            //}    
 
             function generateRandomString($length = 25) {
                 $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -150,22 +152,22 @@
                         $mail->isSMTP();                                            //Send using SMTP
                         $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
                         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-                        $mail->Username   = 'o7777777o30@gmail.com';                     //SMTP username
-                        $mail->Password   = 'o07284670O';                               //SMTP password
+                        $mail->Username   = 'tourarrangesystem@gmail.com';                     //SMTP username
+                        $mail->Password   = 'B107320141621';                               //SMTP password
                         $mail->SMTPSecure = 'ssl';         // 'tls' //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
                         $mail->Port       = 465;                                   // 587 //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
                         $link="http://localhost/TourArrangeSystem/mail/valid.php?email=".$PostM."&id=".$id;
                         $body="歡迎加入行程安排系統<br>請按連結進行驗證:<a href=$link>驗證</a>";
                         $mail->CharSet = "utf-8";
                         //Recipients
-                        $mail->setFrom('o7777777o30@gmail.com', '行程安排系統');
+                        $mail->setFrom('tourarrangesystem@gmail.com', '行程安排系統');
                         $mail->addAddress($PostM, $PostN);     //Add a recipient
                         //Content
                         $mail->isHTML(true);                                  //Set email format to HTML
                         $mail->Subject = '行程安排系統註冊驗證';
                         $mail->Body    = $body;
                         $mail->send();
-                        echo "<script>alert('您的驗證信已寄至$PostM'); window.location.href='./login.php?act=1';</script>";
+                        echo "<script>alert('您的驗證信已寄至$PostM'); window.location.href='./login.php';</script>";
                         /*** email end ***/
                     } 
                 } 

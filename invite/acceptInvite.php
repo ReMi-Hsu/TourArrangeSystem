@@ -93,7 +93,7 @@
                 /*** get all inivitations ***/
                 echo '
                     <div class="container">
-                        <div class="main" style = "flex: 100%; height: 700px;">';
+                        <div class="main" style = "flex: 100%; height: 1500px;">';
 
                 $conn = mysqli_connect("localhost", "root", "", "theme_arrangement");
                     

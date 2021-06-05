@@ -1,10 +1,4 @@
-<?php
-    session_start();
-    if(!($_SESSION['email']))
-    {
-        header("location:./login.php?act=3");
-    }
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,6 +29,7 @@
             require 'PHPMailer/src/SMTP.php';
 
             /*** check whether login or not ***/
+            /*
             $isLogin = false;
             $HostID = -1;
             if($_SESSION){
@@ -52,9 +47,9 @@
                     //echo "host id: ". $HostID ."<br>";
                 }
             }
-
+            */
             /*** display nav acoording to login status ***/
-            if($isLogin)
+            /*if($isLogin)
             {
                 $SessionN = $_SESSION['name'];
                 echo 
@@ -76,8 +71,8 @@
                     <option value="../turn/turningTable.php">懲罰轉盤</option>
                     <option value="../mail/main.php" selected> Hello, '.$SessionN.'</option>
                 </select>';
-            }
-            else{
+            }*/
+            //else{
                 echo 
                 "<nav>
                     <ul class='menu'>
@@ -97,7 +92,7 @@
                     <option value="../mail/login.php?act=1">懲罰轉盤</option>
                     <option value="../mail/login.php?act=1" selected>會員登入</option>
                 </select>';
-            }    
+            //}    
 
             if(isset($_POST['email']))
             {
@@ -116,14 +111,14 @@
                     $mail->isSMTP();                                            //Send using SMTP
                     $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
                     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-                    $mail->Username   = 'jessica30217@gmail.com';                     //SMTP username
-                    $mail->Password   = 'sony6507';                               //SMTP password
-                    $mail->SMTPSecure = "tls";         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-                    $mail->Port       = 587;                                    //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+                    $mail->Username   = 'tourarrangesystem@gmail.com';                     //SMTP username
+                    $mail->Password   = 'B107320141621';                               //SMTP password
+                    $mail->SMTPSecure = "ssl";         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+                    $mail->Port       = 465;                                    //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
                     $body='您的密碼為:&nbsp;&nbsp;'.$row['password'];
                     $mail->CharSet = "utf-8";
                     //Recipients
-                    $mail->setFrom('jessica30217@gmail.com', '行程安排系統');
+                    $mail->setFrom('tourarrangesystem@gmail.com', '行程安排系統');
                     $mail->addAddress($_POST['email'], $row['name']);     //Add a recipient
                     //Content
                     $mail->isHTML(true);                                  //Set email format to HTML

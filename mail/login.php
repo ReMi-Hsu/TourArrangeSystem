@@ -60,6 +60,8 @@
             if($isLogin)
             {
                 $SessionN = $_SESSION['name'];
+                echo "<script>window.location.href='../main/myThemePage.php';</script>";
+                /*
                 echo 
                 "<nav>
                     <ul class='menu'>
@@ -79,6 +81,7 @@
                     <option value="../turn/turningTable.php">懲罰轉盤</option>
                     <option value="../mail/main.php" selected> Hello, '.$SessionN.'</option>
                 </select>';
+                */
             }
             else{
                 echo 

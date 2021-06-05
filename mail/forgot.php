@@ -20,8 +20,9 @@
     
         <!-- FIXME:連結 -->
         <?php  
-            session_start();
+            //session_start();
             /*** check whether login or not ***/
+            /*
             $isLogin = false;
             $HostID = -1;
             if($_SESSION){
@@ -38,10 +39,9 @@
                     $HostID = $row['id'];
                     //echo "host id: ". $HostID ."<br>";
                 }
-            }
-
+            }*/
             /*** display nav acoording to login status ***/
-            if($isLogin)
+            /*if($isLogin)
             {
                 $SessionN = $_SESSION['name'];
                 echo 
@@ -63,8 +63,8 @@
                     <option value="../turn/turningTable.php">懲罰轉盤</option>
                     <option value="../mail/main.php" selected> Hello, '.$SessionN.'</option>
                 </select>';
-            }
-            else{
+            }*/
+            //else{
                 echo 
                 "<nav>
                     <ul class='menu'>
@@ -84,7 +84,7 @@
                     <option value="../mail/login.php?act=1">懲罰轉盤</option>
                     <option value="../mail/login.php?act=1" selected>會員登入</option>
                 </select>';
-            }    
+            //}    
         ?>
         <div class="loginForm" style="margin: 5% auto 20% auto">
            <h3 style="margin: 0">忘記密碼</h3>

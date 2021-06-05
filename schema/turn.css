@@ -1,14 +1,15 @@
 .wrapper {
     width: 100%;
     max-width: 375px;
-    margin: 0px auto;
+    margin: 0px 36% 0 auto;
     position: relative;
   }
   .part2 {
-    background: url(../turn/plan.png) left top no-repeat;
+    background: url(../turn/turn.png) left top no-repeat;
     padding-top: 100%;
     background-size: 100% 100%;
     position: relative;
+    filter: drop-shadow(1px 1px 1px 1px rgba(0, 0, 0, 0.7))
   }
   .rotate-pointer {
     position: absolute;
@@ -26,26 +27,34 @@
     transition-timing-function: cubic-bezier(0.42, 0, 0, 0.99);
   }
   .punishDiv {
-    margin: 5% auto;
-  }
-  table {
     margin: 0 auto;
-    border-collapse: collapse;
-    border: 1px solid black;
+    justify-content: center; 
+    align-items: center; 
   }
-  td {
-    border-collapse: collapse;
-    border: 1px solid black;
+
+  #punishTitle{
+    text-align: center;
+    margin: 5% 5% 0 auto;
   }
-  
-  thead,
-  tfoot {
-    background-color: #333;
-    color: #fff;
-  }
-  
-  #wrapperLabel {
-    margin: 0 auto;
+
+  .punishs{
+    margin: 0 5% 5% 6.7%;
+    font-size: 2.5vmin;
     text-align: center;
   }
   
+  #wrapperLabel {
+    text-align: center;
+  }
+  
+  .punishInput{
+    display: inline-block;
+    position: relative;
+    width: 100%;
+  }
+  
+  @media screen and (max-width: 800px) {
+    .punishs{
+      margin: 0 5% 5% 11%;
+    }
+  }

@@ -93,29 +93,17 @@
                 echo "<div class='container'><div class='main'>";
                 echo "
                     <div class = 'punishDiv'>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th colspan='3'>懲罰選項</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <form>
-                                <tr>
-                                    <td><input type='text' id='punish1' value='真心話大冒險'></td>
-                                    <td><input type='text' id='punish2' value='跳一隻舞'></td>
-                                </tr>
-                                <tr>
-                                    <td><input type='text' id='punish3' value='提供醜照'></td>
-                                    <td><input type='text' id='punish4' value='角色扮演'></td>
-                                </tr>
-                                <tr>
-                                    <td><input type='text' id='punish5' value='請飲料'></td>
-                                    <td><input type='text' id='punish6' value='跑腿'></td>
-                                </tr>
-                                </form>
-                            </tbody>
-                        </table>
+                        <div id='punishTitle'>懲罰選項</div><br>
+                        <div class='punishInput'>
+                            <input type='text' class='punishs' id='punish1' value='真心話大冒險'>
+                            <input type='text' class='punishs' id='punish2' value='跳一隻舞'>
+                            <input type='text' class='punishs' id='punish3' value='提供醜照'>
+                        </div>
+                        <div class='punishInput'>
+                            <input type='text' class='punishs' id='punish4' value='角色扮演'>
+                            <input type='text' class='punishs' id='punish5' value='請飲料'>
+                            <input type='text' class='punishs' id='punish6' value='跑腿'>
+                        </div>
                     </div>
                 ";
 
@@ -199,8 +187,30 @@
                                 });
                                 console.log('punishments', punishments);
 
-                                for (var key in options.gifts) {
-                                    options.gifts[key].tips = punishments[key-1];
+                                for (var key in options.gifts) {//165432
+                                    switch(options.gifts[key].id){
+                                        case '1':
+                                            options.gifts[key].tips = punishments[0];
+                                            break;
+                                        case '2':
+                                            options.gifts[key].tips = punishments[5];
+                                            break;
+                                        case '3':
+                                            options.gifts[key].tips = punishments[4];
+                                            break;
+                                        case '4':
+                                            options.gifts[key].tips = punishments[3];
+                                            break;
+                                        case '5':
+                                            options.gifts[key].tips = punishments[2];
+                                            break;
+                                        case '6':
+                                            options.gifts[key].tips = punishments[1];
+                                            break;
+                                        defualt:
+                                        options.gifts[key].tips = punishments[0];
+                                        break;
+                                    }
                                 }
 
                                 var base = 2160; //和transition: transform 10.5s;对应
@@ -252,7 +262,7 @@
             }
         ?>
 
-    <footer id="footer">
+    <footer id="footer" style="margin-top:5%;">
         Copyright &copy; 
         <!-- FIXME:團隊 -->
     </footer>

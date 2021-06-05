@@ -21,7 +21,7 @@
         <!-- FIXME:連結 -->
         <?php            
             /*** check whether login or not ***/
-            $isLogin = false;
+            /*$isLogin = false;
             $HostID = -1;
             if($_SESSION){
                 if($_SESSION['email'])
@@ -38,8 +38,9 @@
                     //echo "host id: ". $HostID ."<br>";
                 }
             }
-
+            */
             /*** display nav acoording to login status ***/
+            /*
             if($isLogin)
             {
                 $SessionN = $_SESSION['name'];
@@ -62,8 +63,8 @@
                     <option value="../turn/turningTable.php">懲罰轉盤</option>
                     <option value="../mail/main.php" selected> Hello, '.$SessionN.'</option>
                 </select>';
-            }
-            else{
+            }*/
+            //else{
                 echo 
                 "<nav>
                     <ul class='menu'>
@@ -83,7 +84,7 @@
                     <option value="../mail/login.php?act=1">懲罰轉盤</option>
                     <option value="../mail/login.php?act=1" selected>會員登入</option>
                 </select>';
-            }    
+           // }    
         ?>
         <div class="loginForm">
             <form  class="form2" method="POST" id="loginForm" action="./register.php" style="margin-top: 5%">

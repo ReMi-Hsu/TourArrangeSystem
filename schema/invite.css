@@ -1,15 +1,4 @@
 #inviteDiv {
-    /* background-color: #f1f1f1;
-    border: 0px;
-    border-radius: 5px;
-    margin: 1% 0;
-    width: 90%;
-    text-align: left;
-    height: 100px;
-    z-index: 5;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center; */
     display: flex;
     flex-wrap: wrap;
     border: 2px solid rosybrown;
@@ -38,7 +27,7 @@
   }
   
   #inviteDiv .invContainer #Invsubmit {
-    margin-right: 20px;
+    margin-right: 1%;
     float: right;
     border: 2px solid #fff;
     color: #fff;

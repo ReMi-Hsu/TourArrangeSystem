@@ -207,7 +207,7 @@
                             <input type="datetime-local" id="time" name="time" required><br><br>
                             <input type="file" name="file" accept="image/*"><br><br>
                             <label for="invite">Invite:</label><br>';
-            echo '          <select class="attSelect" name="invites[]" multiple size="3">';
+            echo '          <select class="attSelect" name="invites[]" multiple="multiple" size="3">';
                             while($row_account = mysqli_fetch_array($account)){
                                 if($row_account['id']!=$HostID){
                                     $name = $row_account['name'];
@@ -290,7 +290,7 @@
                                             }
                             echo '          <input type="text" id="attendees" name="attendees" value="'.$attNames.'" readonly="readonly"><br>';
                             echo '          <label for="invite">Invite:</label><br>
-                                            <select class="attSelect" name="invites[]" multiple size="3">';
+                                            <select class="attSelect" name="invites[]" multiple="multiple" size="3">';
                                             $sql = "select id, name from account";
                                             $account = mysqli_query($conn, $sql);
                                             while($row_account = mysqli_fetch_array($account)){

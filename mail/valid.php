@@ -15,7 +15,7 @@
             $sql="delete from valid where email='$_GET[email]'";
             $result=mysqli_query($conn, $sql);
             
-            echo"<script>alert('歡迎您加入會員');window.location.href='./login.php?act=1';</script>";
+            echo"<script>alert('歡迎您加入會員');window.location.href='./login.php';</script>";
         }
         else
         {
@@ -24,7 +24,7 @@
             $num=mysqli_num_rows($result);
             if($num==1)
             {
-                echo"<script>alert('您已經是會員，請先完成登入');window.location.href='./login.php?act=1';</script>";
+                echo"<script>alert('您已經是會員，請先完成登入');window.location.href='./login.php';</script>";
             }
             else
             {
